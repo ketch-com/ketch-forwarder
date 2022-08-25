@@ -5,31 +5,6 @@ build:
   command: sh ./scripts/build.sh linux
 test:
   enabled: false
-dockers:
-- dockerfile: docker/controller-receiver-mock/Dockerfile
-  server: ghcr.io
-  organization: ketch-com
-  repository: controller-receiver-mock
-  username: ketch-com
-  password: ${GITHUB_TOKEN}
-  branches:
-    only: main
-- dockerfile: docker/controller-results-mock/Dockerfile
-  server: ghcr.io
-  organization: ketch-com
-  repository: controller-results-mock
-  username: ketch-com
-  password: ${GITHUB_TOKEN}
-  branches:
-    only: main
-- dockerfile: docker/ketch-callback-mock/Dockerfile
-  server: ghcr.io
-  organization: ketch-com
-  repository: ketch-callback-mock
-  username: ketch-com
-  password: ${GITHUB_TOKEN}
-  branches:
-    only: main
 release:
   branches:
     only: main
