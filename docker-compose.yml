@@ -1,0 +1,75 @@
+version: "3.9"
+
+services:
+  controller-receiver-mock:
+    build:
+      context: .
+      dockerfile: docker/controller-receiver-mock/Dockerfile
+      args:
+        TARGETOS: linux
+        TARGETARCH: amd64
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./.certs:/tls
+    environment:
+      CONTROLLER_RECEIVER_MOCK_SERVER_LISTEN: 5000
+      CONTROLLER_RECEIVER_MOCK_SERVER_TLS_CERT_FILE: /tls/server.crt
+      CONTROLLER_RECEIVER_MOCK_SERVER_TLS_KEY_FILE: /tls/server.key
+
+  controller-results-mock:
+    build:
+      context: .
+      dockerfile: docker/controller-results-mock/Dockerfile
+      args:
+        TARGETOS: linux
+        TARGETARCH: amd64
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./.certs:/tls
+    environment:
+      CONTROLLER_RESULTS_MOCK_SERVER_LISTEN: 5000
+      CONTROLLER_RESULTS_MOCK_SERVER_TLS_CERT_FILE: /tls/server.crt
+      CONTROLLER_RESULTS_MOCK_SERVER_TLS_KEY_FILE: /tls/server.key
+
+  ketch-callback-mock:
+    build:
+      context: .
+      dockerfile: docker/ketch-callback-mock/Dockerfile
+      args:
+        TARGETOS: linux
+        TARGETARCH: amd64
+    ports:
+      - "5002:5000"
+    volumes:
+      - ./.certs:/tls
+    environment:
+      KETCH_CALLBACK_MOCK_SERVER_LISTEN: 5000
+      KETCH_CALLBACK_MOCK_SERVER_TLS_CERT_FILE: /tls/server.crt
+      KETCH_CALLBACK_MOCK_SERVER_TLS_KEY_FILE: /tls/server.key
+
+  smoketest:
+    build:
+      context: .
+      dockerfile: docker/smoketest/Dockerfile
+      args:
+        TARGETOS: linux
+        TARGETARCH: amd64
+    profiles:
+      - smoketest
+    depends_on:
+      controller-receiver-mock:
+        condition: service_started
+      controller-results-mock:
+        condition: service_started
+      ketch-callback-mock:
+        condition: service_started
+    environment:
+      SMOKETEST_RECEIVER_URL: https://controller-receiver-mock:5000/endpoint
+      SMOKETEST_RESULTS_URL: https://controller-results-mock:5000/results
+      SMOKETEST_CALLBACK_URL: https://ketch-callback-mock:5000/callback
+
+networks:
+  default:
+    name: ketch_forwarder_default

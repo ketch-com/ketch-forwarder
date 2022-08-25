@@ -1,0 +1,25 @@
+POST {{callback}} HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: {{callback_auth_header_value}}
+
+{
+  "apiVersion": "dsr/v1",
+  "kind": "AccessStatusEvent",
+  "metadata": {
+    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "tenant": "axonic"
+  },
+  "event": {
+    "status": "completed",
+    "expectedCompletionTimestamp": 123,
+    "results": [
+      {
+        "url": "https://example.com/results",
+        "headers": {
+          "Authorization": "Bearer $auth"
+        }
+      }
+    ]
+  }
+}
