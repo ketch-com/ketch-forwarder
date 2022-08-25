@@ -59,6 +59,9 @@ func (c *ForwarderClient) send(ctx context.Context, request any, response any) e
 		return err
 	}
 
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json")
+
 	resp, err := c.client.Do(req)
 	if err != nil {
 		return err

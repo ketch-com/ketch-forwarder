@@ -30,6 +30,17 @@ jobs:
       run: winch ci
       env:
         GITHUB_TOKEN: ${{ github.token }}
+    - name: Generating PDF
+      uses: baileyjm02/markdown-to-pdf@v1
+      with:
+        input_path: README.md
+        output_dir: pdfs
+        build_html: false
+    - name: Upload PDF
+      uses: actions/upload-artifact@v1
+      with:
+        name: specification
+        path: pdfs
 
 concurrency:
   group: ketch-forwarder

@@ -55,6 +55,9 @@ func (c *CallbackClient) send(ctx context.Context, request any) error {
 		return err
 	}
 
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json")
+
 	resp, err := c.client.Do(req)
 	if err != nil {
 		return err
@@ -64,12 +67,17 @@ func (c *CallbackClient) send(ctx context.Context, request any) error {
 
 	if resp.StatusCode > 399 {
 		errResp := &types.Error{}
-		err = json.NewDecoder(resp.Body).Decode(&errResp)
-		if err != nil {
-			return err
+
+		if resp.Header.Get("Content-Type") == "application/json" {
+			err = json.NewDecoder(resp.Body).Decode(&errResp)
+			if err != nil {
+				return err
+			}
+
+			return errors.WithStatusCode(errors.New(errResp.Error.Message), errResp.Error.Code)
 		}
 
-		return errors.WithStatusCode(errors.New(errResp.Error.Message), errResp.Error.Code)
+		return errors.WithStatusCode(nil, resp.StatusCode)
 	}
 
 	return nil

@@ -7,6 +7,7 @@ replace github.com/go-chi/chi/v5 => github.com/go-chi/chi/v5 v5.0.8-0.2022062613
 require (
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
+	github.com/golang/gddo v0.0.0-20210115222349-20d68f94ee1f
 	github.com/google/uuid v1.3.0
 	github.com/stretchr/testify v1.8.0
 	go.ketch.com/lib/orlop/v2 v2.19.3

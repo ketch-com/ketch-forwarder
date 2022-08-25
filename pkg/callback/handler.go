@@ -23,6 +23,16 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	defer r.Body.Close()
 
+	if r.Header.Get("Content-Type") != "application/json" {
+		server.WriteError(r.Context(), w, errors.Invalidf("expected Content-Type 'application/json', got '%s'", r.Header.Get("Content-Type")))
+		return
+	}
+
+	if !server.CanAccept(r, "application/json", "text/plain") {
+		server.WriteError(r.Context(), w, errors.Invalidf("expected Accept to include 'application/json', got '%s'", r.Header.Get("Accept")))
+		return
+	}
+
 	request := new(types.Request)
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		server.WriteError(r.Context(), w, errors.Invalid(err))

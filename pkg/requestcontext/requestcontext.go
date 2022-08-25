@@ -58,6 +58,10 @@ func Metadata(ctx context.Context) *types.Metadata {
 }
 
 func WithMetadata(ctx context.Context, metadata *types.Metadata) context.Context {
+	if metadata == nil {
+		return ctx
+	}
+
 	return WithUID(WithTenant(ctx, metadata.Tenant), metadata.UID)
 }
 
@@ -70,5 +74,9 @@ func StandardObject(ctx context.Context) types.StandardObject {
 }
 
 func WithStandardObject(ctx context.Context, obj types.StandardObject) context.Context {
+	if obj == nil {
+		return ctx
+	}
+
 	return WithApiVersion(WithKind(WithMetadata(ctx, obj.GetMetadata()), obj.GetKind()), obj.GetApiVersion())
 }

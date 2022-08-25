@@ -14,7 +14,7 @@ var Module = fx.Module("results",
 		NewHandler,
 		fx.Annotate(func(handler *Handler) http.Handler {
 			mux := chi.NewMux()
-			mux.Post("/results/{id}", handler.ServeHTTP)
+			mux.Get("/results/{id}", handler.ServeHTTP)
 			return mux
 		}, fx.ResultTags(`name:"server"`)),
 	),
