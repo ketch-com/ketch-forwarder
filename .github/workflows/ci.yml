@@ -26,3 +26,7 @@ jobs:
       uses: winchci/setup-winch@v1
     - name: Run Winch
       run: winch ci
+
+concurrency:
+  group: ketch-forwarder
+  cancel-in-progress: true
