@@ -13,7 +13,6 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
       SNYK_AUTH_TOKEN: ${{ secrets.SNYK_AUTH_TOKEN }}
@@ -22,9 +21,6 @@ jobs:
       uses: conventional-actions/setup-netrc@v1
     - name: Checkout
       uses: actions/checkout@v3
-      with:
-        submodules: true
-        token: ${{ env.GITHUB_TOKEN }}
     - name: Setup Go
       uses: actions/setup-go@v3
       with:
