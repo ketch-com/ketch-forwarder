@@ -12,10 +12,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-      SNYK_AUTH_TOKEN: ${{ secrets.SNYK_AUTH_TOKEN }}
     steps:
     - name: Setup .netrc
       uses: conventional-actions/setup-netrc@v1
