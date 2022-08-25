@@ -28,6 +28,8 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Run Winch
       run: winch ci
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
 
 concurrency:
   group: ketch-forwarder
