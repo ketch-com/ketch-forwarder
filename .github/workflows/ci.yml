@@ -12,19 +12,11 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-      SNYK_AUTH_TOKEN: ${{ secrets.SNYK_AUTH_TOKEN }}
     steps:
     - name: Setup .netrc
       uses: conventional-actions/setup-netrc@v1
     - name: Checkout
       uses: actions/checkout@v3
-      with:
-        submodules: true
-        token: ${{ env.GITHUB_TOKEN }}
     - name: Setup Go
       uses: actions/setup-go@v3
       with:
@@ -32,5 +24,13 @@ jobs:
         cache: true
     - name: Setup Winch
       uses: winchci/setup-winch@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
     - name: Run Winch
       run: winch ci
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+
+concurrency:
+  group: ketch-forwarder
+  cancel-in-progress: true
