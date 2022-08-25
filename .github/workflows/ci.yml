@@ -24,6 +24,8 @@ jobs:
         cache: true
     - name: Setup Winch
       uses: winchci/setup-winch@v1
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
     - name: Run Winch
       run: winch ci
 
