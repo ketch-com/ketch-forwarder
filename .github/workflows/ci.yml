@@ -37,7 +37,7 @@ jobs:
         output_dir: pdfs
         build_html: false
     - name: Upload PDF
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: specification
         path: pdfs

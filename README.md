@@ -94,7 +94,7 @@ Authorization: Bearer $auth
       "description": "Delete my data"
     },
     "claims": {
-      "boost_id": "123"
+      "account_id": "123"
     },
     "submittedTimestamp": 123,
     "dueTimestamp": 123
@@ -298,10 +298,10 @@ Authorization: Bearer $auth
       "stateRegionCode": "MA",
       "postalCode": "10123",
       "countryCode": "US",
-      "description": "Delete my data"
+      "description": "Access my data"
     },
     "claims": {
-      "boost_id": "123"
+      "account_id": "123"
     },
     "submittedTimestamp": 123,
     "dueTimestamp": 123
