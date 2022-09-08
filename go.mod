@@ -10,7 +10,7 @@ require (
 	github.com/golang/gddo v0.0.0-20210115222349-20d68f94ee1f
 	github.com/google/uuid v1.3.0
 	github.com/stretchr/testify v1.8.0
-	go.ketch.com/lib/orlop/v2 v2.19.3
+	go.ketch.com/lib/orlop/v2 v2.19.4
 	go.uber.org/fx v1.18.1
 )
 
