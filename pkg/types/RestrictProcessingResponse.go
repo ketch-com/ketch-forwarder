@@ -38,7 +38,6 @@ type RestrictProcessingResponseBody struct {
 	Reason                      RequestStatusReason `json:"reason,omitempty"`
 	ExpectedCompletionTimestamp int64               `json:"expectedCompletionTimestamp,omitempty"`
 	RedirectURL                 string              `json:"redirectUrl,omitempty"`
-	Results                     []*Callback         `json:"results,omitempty"`
 }
 
 func (r *RestrictProcessingResponseBody) ValidateWithContext(ctx context.Context) error {

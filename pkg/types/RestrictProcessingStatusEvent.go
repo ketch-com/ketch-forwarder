@@ -37,7 +37,6 @@ type RestrictProcessingStatusEventBody struct {
 	Status                      RequestStatus       `json:"status,omitempty"`
 	Reason                      RequestStatusReason `json:"reason,omitempty"`
 	ExpectedCompletionTimestamp int64               `json:"expectedCompletionTimestamp,omitempty"`
-	Results                     []*Callback         `json:"results,omitempty"`
 }
 
 func (r *RestrictProcessingStatusEventBody) ValidateWithContext(ctx context.Context) error {
