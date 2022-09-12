@@ -47,6 +47,12 @@ func (c *ForwarderClient) SendDeleteRequest(ctx context.Context, request *types.
 	return &out, err
 }
 
+func (c *ForwarderClient) SendRestrictProcessingRequest(ctx context.Context, request *types.RestrictProcessingRequest) (*types.RestrictProcessingResponse, error) {
+	var out types.RestrictProcessingResponse
+	err := c.send(ctx, request, &out)
+	return &out, err
+}
+
 func (c *ForwarderClient) send(ctx context.Context, request any, response any) error {
 	buf := new(bytes.Buffer)
 

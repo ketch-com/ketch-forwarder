@@ -10,11 +10,13 @@ var (
 		AccessRequestKind,
 		AccessResponseKind,
 		AccessStatusEventKind,
-		AccessErrorKind,
 		DeleteRequestKind,
 		DeleteResponseKind,
 		DeleteStatusEventKind,
-		DeleteErrorKind,
+		RestrictProcessingRequestKind,
+		RestrictProcessingResponseKind,
+		RestrictProcessingStatusEventKind,
+		ErrorKind,
 	}
 	RequestStatuses = []any{
 		UnknownRequestStatus,
@@ -40,15 +42,16 @@ var (
 type Kind string
 
 const (
-	AccessRequestKind     Kind = "AccessRequest"
-	AccessResponseKind    Kind = "AccessResponse"
-	AccessStatusEventKind Kind = "AccessStatusEvent"
-	AccessErrorKind       Kind = "AccessError"
-	DeleteRequestKind     Kind = "DeleteRequest"
-	DeleteResponseKind    Kind = "DeleteResponse"
-	DeleteStatusEventKind Kind = "DeleteStatusEvent"
-	DeleteErrorKind       Kind = "DeleteError"
-	ErrorKind             Kind = "Error"
+	AccessRequestKind                 Kind = "AccessRequest"
+	AccessResponseKind                Kind = "AccessResponse"
+	AccessStatusEventKind             Kind = "AccessStatusEvent"
+	DeleteRequestKind                 Kind = "DeleteRequest"
+	DeleteResponseKind                Kind = "DeleteResponse"
+	DeleteStatusEventKind             Kind = "DeleteStatusEvent"
+	RestrictProcessingRequestKind     Kind = "RestrictProcessingRequest"
+	RestrictProcessingResponseKind    Kind = "RestrictProcessingResponse"
+	RestrictProcessingStatusEventKind Kind = "RestrictProcessingStatusEvent"
+	ErrorKind                         Kind = "Error"
 )
 
 type RequestStatus string

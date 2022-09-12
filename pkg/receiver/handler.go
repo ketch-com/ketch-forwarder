@@ -119,6 +119,42 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 
 		return
+	} else if request.Kind == types.RestrictProcessingRequestKind {
+		restrictProcessingRequest := &types.RestrictProcessingRequest{
+			ApiVersion: request.ApiVersion,
+			Kind:       request.Kind,
+			Metadata:   request.Metadata,
+		}
+
+		if err := json.Unmarshal(request.Request, &restrictProcessingRequest.Request); err != nil {
+			server.WriteError(ctx, w, errors.Invalid(err))
+			return
+		}
+
+		if err := validation.ValidateWithContext(ctx, restrictProcessingRequest); err != nil {
+			server.WriteError(ctx, w, errors.Invalid(err))
+			return
+		}
+
+		resp, err := h.HandleRestrictProcessingRequest(ctx, restrictProcessingRequest)
+		if err != nil {
+			server.WriteError(ctx, w, err)
+			return
+		}
+
+		if err := validation.ValidateWithContext(ctx, resp); err != nil {
+			server.WriteError(ctx, w, err)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		if err = json.NewEncoder(w).Encode(resp); err != nil {
+			server.WriteError(ctx, w, err)
+			return
+		}
+
+		return
 	}
 
 	server.WriteError(ctx, w, errors.Invalidf("invalid request kind '%s'", request.Kind))
@@ -152,6 +188,20 @@ func (h *Handler) HandleDeleteRequest(ctx context.Context, request *types.Delete
 			Reason:                      types.NeedUserVerificationRequestStatusReason,
 			ExpectedCompletionTimestamp: time.Now().Add(45 * 24 * time.Hour).Unix(),
 			RedirectURL:                 "https://idverification/123",
+		},
+	}
+	return resp, nil
+}
+
+func (h *Handler) HandleRestrictProcessingRequest(ctx context.Context, request *types.RestrictProcessingRequest) (*types.RestrictProcessingResponse, error) {
+	fmt.Println(request)
+	resp := &types.RestrictProcessingResponse{
+		ApiVersion: types.ApiVersion,
+		Kind:       types.RestrictProcessingResponseKind,
+		Metadata:   request.Metadata,
+		Response: &types.RestrictProcessingResponseBody{
+			Status:                      types.PendingRequestStatus,
+			ExpectedCompletionTimestamp: time.Now().Add(45 * 24 * time.Hour).Unix(),
 		},
 	}
 	return resp, nil
