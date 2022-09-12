@@ -15,7 +15,7 @@ type Error struct {
 func (r *Error) ValidateWithContext(ctx context.Context) error {
 	return validation.ValidateStructWithContext(ctx, r,
 		validation.Field(&r.ApiVersion, validation.Required, validation.In(ApiVersion)),
-		validation.Field(&r.Kind, validation.Required, validation.In(AccessErrorKind, DeleteErrorKind)),
+		validation.Field(&r.Kind, validation.Required, validation.In(ErrorKind)),
 		validation.Field(&r.Metadata, validation.Required),
 		validation.Field(&r.Error, validation.Required),
 	)

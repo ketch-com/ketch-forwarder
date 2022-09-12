@@ -14,7 +14,7 @@ func WriteError(ctx context.Context, w http.ResponseWriter, err error) {
 	w.WriteHeader(errors.StatusCode(err))
 	response := new(types.Error)
 	response.ApiVersion = types.ApiVersion
-	response.Kind = MapErrorKind(ctx)
+	response.Kind = types.ErrorKind
 	response.Metadata = requestcontext.Metadata(ctx)
 	response.Error = &types.ErrorBody{
 		Code:    errors.StatusCode(err),
@@ -23,18 +23,5 @@ func WriteError(ctx context.Context, w http.ResponseWriter, err error) {
 	}
 	if err := json.NewEncoder(w).Encode(response); err != nil {
 		log.WithError(err).Error("failed to write error response")
-	}
-}
-
-func MapErrorKind(ctx context.Context) types.Kind {
-	switch requestcontext.Kind(ctx) {
-	case types.AccessRequestKind, types.AccessResponseKind, types.AccessStatusEventKind, types.AccessErrorKind:
-		return types.AccessErrorKind
-
-	case types.DeleteRequestKind, types.DeleteResponseKind, types.DeleteStatusEventKind, types.DeleteErrorKind:
-		return types.DeleteErrorKind
-
-	default:
-		return types.ErrorKind
 	}
 }
