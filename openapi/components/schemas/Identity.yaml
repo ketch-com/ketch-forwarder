@@ -1,0 +1,11 @@
+type: object
+properties:
+  identitySpace:
+    type: string
+    description: identity space code setup in Ketch
+  identityFormat:
+    type: string
+    description: format of the identity value (`raw`, `md5`, `sha1`)
+  identityValue:
+    type: string
+    description: value of the identity

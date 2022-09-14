@@ -1,0 +1,404 @@
+openapi: 3.0.0
+info:
+  title: Ketch Forwarder
+  version: 1.0.0
+  description: Ketch Event Forwarder
+  termsOfService: 'https://www.ketch.com/ketch-terms-of-service'
+  contact:
+    name: Ketch Developer Support
+    url: 'https://developer.ketch.com'
+    email: developers@ketch.com
+servers:
+  - url: TODO
+    description: TODO
+paths:
+  /webhook:
+    get:
+      operationId: Webhook
+      summary: This receives events forwarded from Ketch
+      description: This receives events forwarded from Ketch
+      requestBody:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Request'
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+        default:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: number
+          format: int
+        status:
+          type: string
+        message:
+          type: string
+    AccessResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/DSRRequestStatus'
+          description: the status of the Data Subject Request
+        reason:
+          $ref: '#/components/schemas/DSRRequestStatusReason'
+          description: the reason for the status of the Data Subject Request
+        expectedCompletionTimestamp:
+          type: number
+          format: int64
+          description: the UNIX time stamp at which the Data Subject Request is expected to be completed
+        redirectUrl:
+          type: string
+          format: url
+          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Callback'
+    DeleteResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/DSRRequestStatus'
+          description: the status of the Data Subject Request
+        reason:
+          $ref: '#/components/schemas/DSRRequestStatusReason'
+          description: the reason for the status of the Data Subject Request
+        expectedCompletionTimestamp:
+          type: number
+          format: int64
+          description: the UNIX time stamp at which the Data Subject Request is expected to be completed
+        redirectUrl:
+          type: string
+          format: url
+          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
+    Request:
+      type: object
+      description: Request
+      properties:
+        apiVersion:
+          $ref: '#/components/schemas/ApiVersion'
+        kind:
+          $ref: '#/components/schemas/RequestKind'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        request:
+          $ref: '#/components/schemas/AllResponses'
+    RestrictProcessingResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/DSRRequestStatus'
+          description: the status of the Data Subject Request
+        reason:
+          $ref: '#/components/schemas/DSRRequestStatusReason'
+          description: the reason for the status of the Data Subject Request
+        expectedCompletionTimestamp:
+          type: number
+          format: int64
+          description: the UNIX time stamp at which the Data Subject Request is expected to be completed
+        redirectUrl:
+          type: string
+          format: url
+          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
+    Error:
+      type: object
+      properties:
+        apiVersion:
+          $ref: '#/components/schemas/ApiVersion'
+        kind:
+          $ref: '#/components/schemas/ErrorKind'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        error:
+          $ref: '#/components/schemas/ErrorResponse'
+    ErrorKind:
+      type: string
+      enum:
+        - Error
+    Callback:
+      type: object
+      properties:
+        url:
+          type: string
+          description: URL of the callback endpoint
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: map of headers to send to the callback endpoint
+    RequestKind:
+      type: string
+      enum:
+        - AccessRequest
+        - DeleteRequest
+        - RestrictProcessingRequest
+    Metadata:
+      type: object
+      properties:
+        uid:
+          type: string
+          description: 'a unique UUIDv4, and uniquely identifies the request'
+        tenant:
+          type: string
+          description: the Ketch tenant code where the request originated
+    AllRequests:
+      $oneOf:
+        - $ref: '#/components/schemas/AccessRequest'
+        - $ref: '#/components/schemas/DeleteRequest'
+        - $ref: '#/components/schemas/RestrictProcessingRequest'
+    DeleteRequest:
+      type: object
+      description: Deletion request
+      properties:
+        controller:
+          type: string
+          description: code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
+        property:
+          type: string
+          description: code of the digital property defined in Ketch
+        environment:
+          type: string
+          description: code environment defined in Ketch
+        regulation:
+          type: string
+          description: code of the regulation defined in Ketch
+        jurisdiction:
+          type: string
+          description: code of the jurisdiction defined in Ketch
+        identities:
+          type: array
+          description: array of Identities
+          items:
+            $ref: '#/components/schemas/Identity'
+        callbacks:
+          type: array
+          description: array of Callbacks
+          items:
+            $ref: '#/components/schemas/Callback'
+        subject:
+          $ref: '#/components/schemas/DataSubject'
+          description: the Data Subject
+        claims:
+          type: object
+          additionalProperties:
+            type: string
+          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+        submittedTimestamp:
+          type: number
+          format: int64
+          description: UNIX timestamp in seconds
+        dueTimestamp:
+          type: number
+          format: int64
+          description: UNIX timestamp in seconds
+    DataSubject:
+      type: object
+      properties:
+        email:
+          type: string
+          description: email address provided by the Data Subject
+        firstName:
+          type: string
+          description: first name provided by the Data Subject
+        lastName:
+          type: string
+          description: last name provided by the Data Subject
+        addressLine1:
+          type: string
+          description: address line 1 provided by the Data Subject
+        addressLine2:
+          type: string
+          description: address line 2 provided by the Data Subject
+        city:
+          type: string
+          description: city provided by the Data Subject
+        stateRegionCode:
+          type: string
+          description: 'state/region code (e.g., CA) provided by the Data Subject'
+        postalCode:
+          type: string
+          description: zip/postal code provided by the Data Subject
+        countryCode:
+          type: string
+          description: 'two-character ISO country code (e.g., US) provided by the Data Subject'
+        description:
+          type: string
+          description: free-text description provided by the Data Subject
+    RestrictProcessingRequest:
+      type: object
+      description: Restrict Processing request
+      properties:
+        controller:
+          type: string
+          description: code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
+        property:
+          type: string
+          description: code of the digital property defined in Ketch
+        environment:
+          type: string
+          description: code environment defined in Ketch
+        regulation:
+          type: string
+          description: code of the regulation defined in Ketch
+        jurisdiction:
+          type: string
+          description: code of the jurisdiction defined in Ketch
+        purposes:
+          type: array
+          items:
+            type: string
+        identities:
+          type: array
+          description: array of Identities
+          items:
+            $ref: '#/components/schemas/Identity'
+        callbacks:
+          type: array
+          description: array of Callbacks
+          items:
+            $ref: '#/components/schemas/Callback'
+        subject:
+          $ref: '#/components/schemas/DataSubject'
+          description: the Data Subject
+        claims:
+          type: object
+          additionalProperties:
+            type: string
+          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+        submittedTimestamp:
+          type: number
+          format: int64
+          description: UNIX timestamp in seconds
+        dueTimestamp:
+          type: number
+          format: int64
+          description: UNIX timestamp in seconds
+    AccessRequest:
+      type: object
+      description: Access request
+      properties:
+        controller:
+          type: string
+          description: code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
+        property:
+          type: string
+          description: code of the digital property defined in Ketch
+        environment:
+          type: string
+          description: code environment defined in Ketch
+        regulation:
+          type: string
+          description: code of the regulation defined in Ketch
+        jurisdiction:
+          type: string
+          description: code of the jurisdiction defined in Ketch
+        identities:
+          type: array
+          description: array of Identities
+          items:
+            $ref: '#/components/schemas/Identity'
+        callbacks:
+          type: array
+          description: array of Callbacks
+          items:
+            $ref: '#/components/schemas/Callback'
+        subject:
+          $ref: '#/components/schemas/DataSubject'
+          description: the Data Subject
+        claims:
+          type: object
+          additionalProperties:
+            type: string
+          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+        submittedTimestamp:
+          type: number
+          format: int64
+          description: UNIX timestamp in seconds
+        dueTimestamp:
+          type: number
+          format: int64
+          description: UNIX timestamp in seconds
+    AllResponses:
+      $oneOf:
+        - $ref: '#/components/schemas/AccessResponse'
+        - $ref: '#/components/schemas/DeleteResponse'
+        - $ref: '#/components/schemas/RestrictProcessingResponse'
+    ResponseKind:
+      type: string
+      enum:
+        - AccessResponse
+        - DeleteResponse
+        - RestrictProcessingResponse
+    DSRRequestStatusReason:
+      type: string
+      enum:
+        - unknown
+        - need_user_verification
+        - suspected_fraud
+        - insufficient_verification
+        - no_match
+        - claim_not_covered
+        - outside_jurisdiction
+        - too_many_requests
+        - other
+    Identity:
+      type: object
+      properties:
+        identitySpace:
+          type: string
+          description: identity space code setup in Ketch
+        identityFormat:
+          type: string
+          description: 'format of the identity value (`raw`, `md5`, `sha1`)'
+        identityValue:
+          type: string
+          description: value of the identity
+    Status:
+      type: object
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          pattern: Error
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        error:
+          $ref: '#/components/schemas/AllResponses'
+    DSRRequestStatus:
+      type: string
+      enum:
+        - unknown
+        - pending
+        - in_progress
+        - completed
+        - cancelled
+        - denied
+    Response:
+      type: object
+      description: Response
+      properties:
+        apiVersion:
+          $ref: '#/components/schemas/ApiVersion'
+        kind:
+          $ref: '#/components/schemas/ResponseKind'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        response:
+          $ref: '#/components/schemas/AllResponses'
+    ApiVersion:
+      type: string
+      pattern: dsr/v1

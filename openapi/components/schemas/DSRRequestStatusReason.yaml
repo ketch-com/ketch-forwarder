@@ -1,0 +1,12 @@
+type: string
+enum:
+  - unknown
+  - need_user_verification
+  - suspected_fraud
+  - insufficient_verification
+  - no_match
+  - claim_not_covered
+  - outside_jurisdiction
+  - too_many_requests
+  - other
+

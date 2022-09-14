@@ -1,0 +1,46 @@
+ErrorResponse:
+  $ref: "./ErrorResponse.yaml"
+AccessResponse:
+  $ref: "./AccessResponse.yaml"
+DeleteResponse:
+  $ref: "./DeleteResponse.yaml"
+Request:
+  $ref: "./Request.yaml"
+RestrictProcessingResponse:
+  $ref: "./RestrictProcessingResponse.yaml"
+Error:
+  $ref: "./Error.yaml"
+ErrorKind:
+  $ref: "./ErrorKind.yaml"
+Callback:
+  $ref: "./Callback.yaml"
+RequestKind:
+  $ref: "./RequestKind.yaml"
+Metadata:
+  $ref: "./Metadata.yaml"
+AllRequests:
+  $ref: "./AllRequests.yaml"
+DeleteRequest:
+  $ref: "./DeleteRequest.yaml"
+DataSubject:
+  $ref: "./DataSubject.yaml"
+RestrictProcessingRequest:
+  $ref: "./RestrictProcessingRequest.yaml"
+AccessRequest:
+  $ref: "./AccessRequest.yaml"
+AllResponses:
+  $ref: "./AllResponses.yaml"
+ResponseKind:
+  $ref: "./ResponseKind.yaml"
+DSRRequestStatusReason:
+  $ref: "./DSRRequestStatusReason.yaml"
+Identity:
+  $ref: "./Identity.yaml"
+Status:
+  $ref: "./Status.yaml"
+DSRRequestStatus:
+  $ref: "./DSRRequestStatus.yaml"
+Response:
+  $ref: "./Response.yaml"
+ApiVersion:
+  $ref: "./ApiVersion.yaml"

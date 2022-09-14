@@ -1,0 +1,9 @@
+type: object
+properties:
+  uid:
+    type: string
+    description: a unique UUIDv4, and uniquely identifies the request
+  tenant:
+    type: string
+    description: the Ketch tenant code where the request originated
+

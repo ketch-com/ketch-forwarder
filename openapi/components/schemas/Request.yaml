@@ -1,0 +1,11 @@
+type: object
+description: Request
+properties:
+  apiVersion:
+    $ref: "./ApiVersion.yaml"
+  kind:
+    $ref: "./RequestKind.yaml"
+  metadata:
+    $ref: "./Metadata.yaml"
+  request:
+    $ref: "./AllResponses.yaml"

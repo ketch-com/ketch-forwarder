@@ -1,0 +1,32 @@
+type: object
+properties:
+  email:
+    type: string
+    description: email address provided by the Data Subject
+  firstName:
+    type: string
+    description: first name provided by the Data Subject
+  lastName:
+    type: string
+    description: last name provided by the Data Subject
+  addressLine1:
+    type: string
+    description: address line 1 provided by the Data Subject
+  addressLine2:
+    type: string
+    description: address line 2 provided by the Data Subject
+  city:
+    type: string
+    description: city provided by the Data Subject
+  stateRegionCode:
+    type: string
+    description: state/region code (e.g., CA) provided by the Data Subject
+  postalCode:
+    type: string
+    description: zip/postal code provided by the Data Subject
+  countryCode:
+    type: string
+    description: two-character ISO country code (e.g., US) provided by the Data Subject
+  description:
+    type: string
+    description: free-text description provided by the Data Subject
