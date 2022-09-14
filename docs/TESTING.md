@@ -17,6 +17,7 @@ func TestSomething(t *testing.T) {
 	// This opens the test/fixtures/foo/bar.json file from assets
     f, err := test.Fixtures.Open("foo/bar.json")
 }
+
 ```
 
 ## Unit testing
@@ -29,6 +30,7 @@ All unit tests should be created with the following build tag:
 
 ```go
 //go:build unit && !integration && !smoke
+
 ```
 
 Then you can run unit tests using Go Test:
@@ -49,6 +51,7 @@ All integration tests should be created with the following build tag:
 
 ```go
 //go:build !unit && integration && !smoke
+
 ```
 
 Then you can run integration tests using Go Test:
@@ -65,6 +68,7 @@ All smoke tests should be created with the following build tag:
 
 ```go
 //go:build !unit && !integration && smoke
+
 ```
 
 To smoketest this repository, as follows:

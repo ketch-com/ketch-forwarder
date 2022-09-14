@@ -1,0 +1,5 @@
+type: string
+enum:
+  - AccessResponse
+  - DeleteResponse
+  - RestrictProcessingResponse

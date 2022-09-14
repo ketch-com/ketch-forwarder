@@ -1,0 +1,4 @@
+$oneOf:
+  - $ref: "./AccessResponse.yaml"
+  - $ref: "./DeleteResponse.yaml"
+  - $ref: "./RestrictProcessingResponse.yaml"

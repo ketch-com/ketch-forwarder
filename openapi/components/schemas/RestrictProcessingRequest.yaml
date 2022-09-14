@@ -1,0 +1,49 @@
+type: object
+description: Restrict Processing request
+properties:
+  controller:
+    type: string
+    description: code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
+  property:
+    type: string
+    description: code of the digital property defined in Ketch
+  environment:
+    type: string
+    description: code environment defined in Ketch
+  regulation:
+    type: string
+    description: code of the regulation defined in Ketch
+  jurisdiction:
+    type: string
+    description: code of the jurisdiction defined in Ketch
+  purposes:
+    type: array
+    items:
+      type: string
+  identities:
+    type: array
+    description: array of Identities
+    items:
+      $ref: "./Identity.yaml"
+  "callbacks":
+    type: array
+    description: array of Callbacks
+    items:
+      $ref: "./Callback.yaml"
+  subject:
+    $ref: "./DataSubject.yaml"
+    description: the Data Subject
+  claims:
+    type: object
+    additionalProperties:
+      type: string
+    description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+  submittedTimestamp:
+    type: number
+    format: int64
+    description: UNIX timestamp in seconds
+  dueTimestamp:
+    type: number
+    format: int64
+    description: UNIX timestamp in seconds
+

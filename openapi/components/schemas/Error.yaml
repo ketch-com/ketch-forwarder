@@ -1,0 +1,10 @@
+type: object
+properties:
+  apiVersion:
+    $ref: "./ApiVersion.yaml"
+  kind:
+    $ref: "./ErrorKind.yaml"
+  metadata:
+    $ref: "./Metadata.yaml"
+  error:
+    $ref: "./ErrorResponse.yaml"

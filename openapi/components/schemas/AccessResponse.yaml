@@ -1,0 +1,20 @@
+type: object
+properties:
+  status:
+    $ref: "./DSRRequestStatus.yaml"
+    description: the status of the Data Subject Request
+  reason:
+    $ref: "./DSRRequestStatusReason.yaml"
+    description: the reason for the status of the Data Subject Request
+  expectedCompletionTimestamp:
+    type: number
+    format: int64
+    description: the UNIX time stamp at which the Data Subject Request is expected to be completed
+  redirectUrl:
+    type: string
+    format: url
+    description: if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to
+  results:
+    type: array
+    items:
+      $ref: "./Callback.yaml"

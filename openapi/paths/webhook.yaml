@@ -1,0 +1,21 @@
+get:
+  operationId: Webhook
+  summary: This receives events forwarded from Ketch
+  description: This receives events forwarded from Ketch
+  requestBody:
+    application/json:
+      schema:
+        $ref: "../components/schemas/Request.yaml"
+  responses:
+    '200':
+      description: Response
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/Response.yaml"
+    default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/Error.yaml"

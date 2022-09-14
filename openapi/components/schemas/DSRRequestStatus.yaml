@@ -1,0 +1,8 @@
+type: string
+enum:
+  - unknown
+  - pending
+  - in_progress
+  - completed
+  - cancelled
+  - denied

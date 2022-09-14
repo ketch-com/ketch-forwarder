@@ -24,8 +24,27 @@ type SmokeTestSuiteParams struct {
 type SmokeTestSuite struct {
 	suite.Suite
 
-	app    *fx.App
-	params SmokeTestSuiteParams
+	app      *fx.App
+	params   SmokeTestSuiteParams
+	finished chan bool
+}
+
+func (suite *SmokeTestSuite) Finished(result bool) {
+	suite.finished <- result
+}
+
+func (suite *SmokeTestSuite) WaitFinished() bool {
+	return suite.WaitFinishedWithTimeout(1 * time.Minute)
+}
+
+func (suite *SmokeTestSuite) WaitFinishedWithTimeout(timeout time.Duration) bool {
+	select {
+	case result := <-suite.finished:
+		return result
+
+	case <-time.After(timeout):
+		return false
+	}
 }
 
 func (suite *SmokeTestSuite) SetupTest() {}
@@ -34,6 +53,7 @@ func (suite *SmokeTestSuite) TearDownTest() {}
 
 func (suite *SmokeTestSuite) SetupSuite() {
 	var err error
+	suite.finished = make(chan bool)
 	suite.app, err = orlop.TestModule("smoketest", fx.Supply(suite), Module, fx.Populate(&suite.params))
 	suite.Require().NoError(err)
 }

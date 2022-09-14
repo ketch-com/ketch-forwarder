@@ -1,0 +1,19 @@
+openapi: "3.0.0"
+info:
+  title: Ketch Forwarder
+  version: 1.0.0
+  description: Ketch Event Forwarder
+  termsOfService: https://www.ketch.com/ketch-terms-of-service
+  contact:
+    name: Ketch Developer Support
+    url: https://developer.ketch.com
+    email: developers@ketch.com
+servers:
+  - url: TODO
+    description: TODO
+paths:
+  "/webhook":
+    $ref: "../paths/webhook.yaml"
+components:
+  schemas:
+    $ref: "../components/schemas/_index.yaml"

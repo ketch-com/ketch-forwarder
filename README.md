@@ -597,7 +597,6 @@ Content-Type: application/json
     "reason": "need_user_verification",
     "expectedCompletionTimestamp": 123,
     "redirectUrl": "https://verifyidentity.com/123",
-    "results": []
   }
 }
 ```
@@ -612,7 +611,6 @@ Content-Type: application/json
 * *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
 * *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
 * *response.redirectUrl* - if the Data Subject should be redirected to a URL (perhaps for confirmation)
-* *response.results* - array of [Callbacks](#Callback) that can be used to download the contents requested
 
 ### Restrict Processing Error Response
 
