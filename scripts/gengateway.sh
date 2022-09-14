@@ -35,20 +35,4 @@ if [ -d openapi ]; then
   done
 
   $swagger_cli bundle --outfile openapi/index_gen.yaml --type yaml openapi/servers/index.yaml
-
-  echo "Generating gateway stubs..."
-  for i in $servers; do
-    # Generate the gateway stub code
-    echo "* openapi/${i}_gen.yaml -> gateway/${i}_{handlers,requests,responses}_gen.go"
-    $shipbuilder generate \
-      --go-handler "pkg/gateway/${i}_handlers_gen.go" --go-handler-package "${module}/pkg/gateway" \
-      --go-requests "pkg/gateway/${i}_requests_gen.go" --go-requests-package "${module}/pkg/gateway" \
-      --go-responses "pkg/gateway/${i}_responses_gen.go" --go-responses-package "${module}/pkg/gateway" \
-      "openapi/${i}_gen.yaml"
-  done
-
-  echo "* openapi/index_gen.yaml -> gateway/types_gen.go"
-  $shipbuilder generate \
-    --go-types pkg/gateway/types_gen.go --go-types-package "${module}/pkg/gateway" \
-    openapi/index_gen.yaml
 fi
