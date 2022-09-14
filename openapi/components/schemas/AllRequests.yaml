@@ -1,4 +1,5 @@
 $oneOf:
   - $ref: "./AccessRequest.yaml"
+  - $ref: "./CorrectionRequest.yaml"
   - $ref: "./DeleteRequest.yaml"
   - $ref: "./RestrictProcessingRequest.yaml"

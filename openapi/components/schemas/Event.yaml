@@ -1,0 +1,10 @@
+type: object
+properties:
+  apiVersion:
+    $ref: "./ApiVersion.yaml"
+  kind:
+    $ref: "./EventKind.yaml"
+  metadata:
+    $ref: "./Metadata.yaml"
+  event:
+    $ref: "./AllEvents.yaml"

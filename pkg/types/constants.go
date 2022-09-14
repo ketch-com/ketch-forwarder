@@ -10,6 +10,9 @@ var (
 		AccessRequestKind,
 		AccessResponseKind,
 		AccessStatusEventKind,
+		CorrectionRequestKind,
+		CorrectionResponseKind,
+		CorrectionStatusEventKind,
 		DeleteRequestKind,
 		DeleteResponseKind,
 		DeleteStatusEventKind,
@@ -45,6 +48,9 @@ const (
 	AccessRequestKind                 Kind = "AccessRequest"
 	AccessResponseKind                Kind = "AccessResponse"
 	AccessStatusEventKind             Kind = "AccessStatusEvent"
+	CorrectionRequestKind             Kind = "CorrectionRequest"
+	CorrectionResponseKind            Kind = "CorrectionResponse"
+	CorrectionStatusEventKind         Kind = "CorrectionStatusEvent"
 	DeleteRequestKind                 Kind = "DeleteRequest"
 	DeleteResponseKind                Kind = "DeleteResponse"
 	DeleteStatusEventKind             Kind = "DeleteStatusEvent"
