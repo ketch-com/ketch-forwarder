@@ -716,3 +716,4 @@ The `status` of a Request progresses through the following state/activity diagra
 * *outside_jurisdiction* - the status is cancelled/denied because the Data Subject is outside the covered jurisdiction
 * *too_many_requests* - the status is cancelled/denied because the Data Subject has made too many requests
 * *other* - the reason for the status some other reason 
+
