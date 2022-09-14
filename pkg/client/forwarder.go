@@ -41,6 +41,12 @@ func (c *ForwarderClient) SendAccessRequest(ctx context.Context, request *types.
 	return &out, err
 }
 
+func (c *ForwarderClient) SendCorrectionRequest(ctx context.Context, request *types.CorrectionRequest) (*types.CorrectionResponse, error) {
+	var out types.CorrectionResponse
+	err := c.send(ctx, request, &out)
+	return &out, err
+}
+
 func (c *ForwarderClient) SendDeleteRequest(ctx context.Context, request *types.DeleteRequest) (*types.DeleteResponse, error) {
 	var out types.DeleteResponse
 	err := c.send(ctx, request, &out)
