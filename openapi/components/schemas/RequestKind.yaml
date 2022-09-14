@@ -1,5 +1,6 @@
 type: string
 enum:
   - AccessRequest
+  - CorrectionRequest
   - DeleteRequest
   - RestrictProcessingRequest

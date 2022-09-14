@@ -139,10 +139,17 @@ components:
           additionalProperties:
             type: string
           description: map of headers to send to the callback endpoint
+    AllEvents:
+      $oneOf:
+        - $ref: '#/components/schemas/AccessResponse'
+        - $ref: '#/components/schemas/CorrectionResponse'
+        - $ref: '#/components/schemas/DeleteResponse'
+        - $ref: '#/components/schemas/RestrictProcessingResponse'
     RequestKind:
       type: string
       enum:
         - AccessRequest
+        - CorrectionRequest
         - DeleteRequest
         - RestrictProcessingRequest
     Metadata:
@@ -157,6 +164,7 @@ components:
     AllRequests:
       $oneOf:
         - $ref: '#/components/schemas/AccessRequest'
+        - $ref: '#/components/schemas/CorrectionRequest'
         - $ref: '#/components/schemas/DeleteRequest'
         - $ref: '#/components/schemas/RestrictProcessingRequest'
     DeleteRequest:
@@ -237,6 +245,24 @@ components:
         description:
           type: string
           description: free-text description provided by the Data Subject
+    Event:
+      type: object
+      properties:
+        apiVersion:
+          $ref: '#/components/schemas/ApiVersion'
+        kind:
+          $ref: '#/components/schemas/EventKind'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        event:
+          $ref: '#/components/schemas/AllEvents'
+    EventKind:
+      type: string
+      enum:
+        - AccessStatusEvent
+        - CorrectionStatusEvent
+        - DeleteStatusEvent
+        - RestrictProcessingStatusEvent
     RestrictProcessingRequest:
       type: object
       description: Restrict Processing request
@@ -334,12 +360,76 @@ components:
     AllResponses:
       $oneOf:
         - $ref: '#/components/schemas/AccessResponse'
+        - $ref: '#/components/schemas/CorrectionResponse'
         - $ref: '#/components/schemas/DeleteResponse'
         - $ref: '#/components/schemas/RestrictProcessingResponse'
+    CorrectionRequest:
+      type: object
+      description: Correction request
+      properties:
+        controller:
+          type: string
+          description: code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
+        property:
+          type: string
+          description: code of the digital property defined in Ketch
+        environment:
+          type: string
+          description: code environment defined in Ketch
+        regulation:
+          type: string
+          description: code of the regulation defined in Ketch
+        jurisdiction:
+          type: string
+          description: code of the jurisdiction defined in Ketch
+        identities:
+          type: array
+          description: array of Identities
+          items:
+            $ref: '#/components/schemas/Identity'
+        callbacks:
+          type: array
+          description: array of Callbacks
+          items:
+            $ref: '#/components/schemas/Callback'
+        subject:
+          $ref: '#/components/schemas/DataSubject'
+          description: the Data Subject
+        claims:
+          type: object
+          additionalProperties:
+            type: string
+          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+        submittedTimestamp:
+          type: number
+          format: int64
+          description: UNIX timestamp in seconds
+        dueTimestamp:
+          type: number
+          format: int64
+          description: UNIX timestamp in seconds
+    CorrectionResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/DSRRequestStatus'
+          description: the status of the Data Subject Request
+        reason:
+          $ref: '#/components/schemas/DSRRequestStatusReason'
+          description: the reason for the status of the Data Subject Request
+        expectedCompletionTimestamp:
+          type: number
+          format: int64
+          description: the UNIX time stamp at which the Data Subject Request is expected to be completed
+        redirectUrl:
+          type: string
+          format: url
+          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
     ResponseKind:
       type: string
       enum:
         - AccessResponse
+        - CorrectionResponse
         - DeleteResponse
         - RestrictProcessingResponse
     DSRRequestStatusReason:
@@ -366,18 +456,6 @@ components:
         identityValue:
           type: string
           description: value of the identity
-    Status:
-      type: object
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          pattern: Error
-        metadata:
-          $ref: '#/components/schemas/Metadata'
-        error:
-          $ref: '#/components/schemas/AllResponses'
     DSRRequestStatus:
       type: string
       enum:

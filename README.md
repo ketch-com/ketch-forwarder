@@ -666,15 +666,7 @@ Accept: application/json
   },
   "event": {
     "status": "completed",
-    "expectedCompletionTimestamp": 123,
-    "results": [
-      {
-        "url": "https://example.com/results",
-        "headers": {
-          "Authorization": "Bearer $auth"
-        }
-      }
-    ]
+    "expectedCompletionTimestamp": 123
   }
 }
 ```
@@ -688,7 +680,212 @@ Accept: application/json
 * *response.status* - the [status](#Status) of the Data Subject Request
 * *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
 * *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
-* *response.results* - array of [Callbacks](#Callback) that can be used to download the contents requested
+
+## Correction
+
+A Correction Request is initiated when a Data Subject invokes a right that allows correction of personal data. Note that
+only the basic details are transported since collecting specific correction details are currently beyond the scope.
+
+### Correction Request
+
+```http request
+POST /endpoint HTTP/1.1
+Host: www.example.com
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer $auth
+
+{
+  "apiVersion": "dsr/v1",
+  "kind": "CorrectionRequest",
+  "metadata": {
+    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "tenant": "axonic"
+  },
+  "request": {
+    "controller": "axonic",
+    "property": "axonic.io",
+    "environment": "production",
+    "regulation": "gdpr",
+    "jurisdiction": "eugdpr",
+    "identities": [
+      {
+        "identitySpace": "account_id",
+        "identityFormat": "raw",
+        "identityValue": "123"
+      }
+    ],
+    "callbacks": [
+      {
+        "url": "https://dsr.ketch.com/callback",
+        "headers": {
+          "Authorization": "Bearer $auth"
+        }
+      }
+    ],
+    "subject": {
+      "email": "test@subject.com",
+      "firstName": "Test",
+      "lastName": "Subject",
+      "addressLine1": "123 Main St",
+      "addressLine2": "",
+      "city": "Anytown",
+      "stateRegionCode": "MA",
+      "postalCode": "10123",
+      "countryCode": "US",
+      "description": "Correct my name to Test Object"
+    },
+    "claims": {
+      "account_id": "123"
+    },
+    "submittedTimestamp": 123,
+    "dueTimestamp": 123
+  }
+}
+```
+
+#### Fields
+
+* *apiVersion* - must be `dsr/v1`
+* *kind* - must be `CorrectionRequest`
+* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
+* *metadata.tenant* - will be the Ketch tenant code where the request originated
+* *request.controller* - code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
+* *request.property* - code of the digital property defined in Ketch
+* *request.environment* - code environment defined in Ketch
+* *request.regulation* - code of the regulation defined in Ketch
+* *request.jurisdiction* - code of the jurisdiction defined in Ketch
+* *request.identities* - array of [Identities](#Identity)
+* *request.callbacks* - array of [Callbacks](#Callback)
+* *request.subject* - the [Data Subject](#Subject)
+* *request.claims* - map containing additional claims that have been added via identity verification or other augmentation methods
+* *request.submittedTimestamp* - UNIX timestamp in seconds
+* *request.dueTimestamp* - UNIX timestamp in seconds
+
+#### Callback
+
+* *url* - URL of the callback endpoint
+* *headers* - map of headers to send to the callback endpoint
+
+#### Identity
+
+* *identitySpace* - identity space code setup in Ketch
+* *identityFormat* - format of the identity value (`raw`, `md5`, `sha1`)
+* *identityValue* - value of the identity
+
+#### Subject
+
+* *email* - email address provided by the Data Subject
+* *firstName* - first name provided by the Data Subject
+* *lastName* - last name provided by the Data Subject
+* *addressLine1* - address line 1 provided by the Data Subject
+* *addressLine2* - address line 2 provided by the Data Subject
+* *city* - city provided by the Data Subject
+* *stateRegionCode* - state/region code (e.g., CA) provided by the Data Subject
+* *postalCode* - zip/postal code provided by the Data Subject
+* *countryCode* - two-character ISO country code (e.g., US) provided by the Data Subject
+* *description* - free-text description provided by the Data Subject
+
+### Successful Correction Response
+
+```http request
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "apiVersion": "dsr/v1",
+  "kind": "CorrectionResponse",
+  "metadata": {
+    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "tenant": "axonic"
+  },
+  "response": {
+    "status": "pending",
+    "reason": "need_user_verification",
+    "expectedCompletionTimestamp": 123,
+    "redirectUrl": "https://verifyidentity.com/123",
+  }
+}
+```
+
+#### Fields
+
+* *apiVersion* - must be `dsr/v1`
+* *kind* - must be `CorrectionResponse`
+* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
+* *metadata.tenant* - will be the Ketch tenant code where the request originated
+* *response.status* - the [status](#Status) of the Data Subject Request
+* *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
+* *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
+* *response.redirectUrl* - if the Data Subject should be redirected to a URL (perhaps for confirmation)
+
+### Correction Error Response
+
+```http request
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: 238
+
+{
+  "apiVersion": "dsr/v1",
+  "kind": "Error",
+  "metadata": {
+    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "tenant": "axonic"
+  },
+  "error": {
+    "code": 404,
+    "status": "not_found",
+    "message": "Not found"
+  }
+}
+```
+
+#### Fields
+
+* *apiVersion* - must be `dsr/v1`
+* *kind* - must be `Error`
+* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
+* *metadata.tenant* - will be the Ketch tenant code where the request originated
+* *error.code* - the HTTP status code
+* *error.status* - a string code representing the error
+* *error.message* - a user-friendly error message (e.g., `"Not found"`)
+
+### Correction Status Event
+
+When the status of Correction Request has changed, an event should be sent to all the callbacks specified. The following
+is an example of a `CorrectionStatusEvent`. Once the status is set to `completed`, `cancelled` or `denied`, then no
+further events will be accepted.
+
+```http request
+POST /callback HTTP/1.1
+Host: dsr.ketch.com
+Content-Type: application/json
+Accept: application/json
+
+{
+  "apiVersion": "dsr/v1",
+  "kind": "CorrectionStatusEvent",
+  "metadata": {
+    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "tenant": "axonic"
+  },
+  "event": {
+    "status": "completed",
+    "expectedCompletionTimestamp": 123
+  }
+}
+```
+
+#### Fields
+
+* *apiVersion* - must be `dsr/v1`
+* *kind* - must be `CorrectionStatusEvent`
+* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
+* *metadata.tenant* - will be the Ketch tenant code where the request originated
+* *response.status* - the [status](#Status) of the Data Subject Request
+* *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
+* *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
 
 ## Status
 
