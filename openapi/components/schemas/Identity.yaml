@@ -6,6 +6,7 @@ properties:
   identityFormat:
     type: string
     description: format of the identity value (`raw`, `md5`, `sha1`)
+    default: raw
   identityValue:
     type: string
     description: value of the identity

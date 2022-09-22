@@ -10,10 +10,13 @@ properties:
     type: number
     format: int64
     description: the UNIX time stamp at which the Data Subject Request is expected to be completed
-  redirectUrl:
+  requestID:
     type: string
-    format: url
-    description: if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to
+    description: the request ID known in the destination system
+#  redirectUrl:
+#    type: string
+#    format: url
+#    description: if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to
   results:
     type: array
     items:

@@ -6,10 +6,10 @@ import (
 )
 
 type AccessStatusEvent struct {
-	ApiVersion string                 `json:"apiVersion,omitempty"`
-	Kind       Kind                   `json:"kind,omitempty"`
-	Metadata   *Metadata              `json:"metadata,omitempty"`
-	Event      *AccessStatusEventBody `json:"event,omitempty"`
+	ApiVersion string              `json:"apiVersion,omitempty"`
+	Kind       Kind                `json:"kind,omitempty"`
+	Metadata   *Metadata           `json:"metadata,omitempty"`
+	Event      *AccessResponseBody `json:"event,omitempty"`
 }
 
 func (r *AccessStatusEvent) ValidateWithContext(ctx context.Context) error {
@@ -31,19 +31,4 @@ func (r *AccessStatusEvent) GetKind() Kind {
 
 func (r *AccessStatusEvent) GetMetadata() *Metadata {
 	return r.Metadata
-}
-
-type AccessStatusEventBody struct {
-	Status                      RequestStatus       `json:"status,omitempty"`
-	Reason                      RequestStatusReason `json:"reason,omitempty"`
-	ExpectedCompletionTimestamp int64               `json:"expectedCompletionTimestamp,omitempty"`
-	Results                     []*Callback         `json:"results,omitempty"`
-}
-
-func (r *AccessStatusEventBody) ValidateWithContext(ctx context.Context) error {
-	return validation.ValidateStructWithContext(ctx, r,
-		validation.Field(&r.Status, validation.Required, validation.In(RequestStatuses...)),
-		validation.Field(&r.Reason, validation.When(len(r.Reason) > 0, validation.In(RequestStatusReasons...))),
-		validation.Field(&r.ExpectedCompletionTimestamp, validation.Required),
-	)
 }

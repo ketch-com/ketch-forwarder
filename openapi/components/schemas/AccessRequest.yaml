@@ -21,7 +21,7 @@ properties:
     description: array of Identities
     items:
       $ref: "./Identity.yaml"
-  "callbacks":
+  callbacks:
     type: array
     description: array of Callbacks
     items:

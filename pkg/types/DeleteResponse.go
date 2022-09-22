@@ -34,10 +34,11 @@ func (r *DeleteResponse) GetMetadata() *Metadata {
 }
 
 type DeleteResponseBody struct {
-	Status                      RequestStatus       `json:"status"`
-	Reason                      RequestStatusReason `json:"reason"`
-	ExpectedCompletionTimestamp int64               `json:"expectedCompletionTimestamp"`
-	RedirectURL                 string              `json:"redirectUrl"`
+	Status                      RequestStatus       `json:"status,omitempty"`
+	Reason                      RequestStatusReason `json:"reason,omitempty"`
+	RequestID                   string              `json:"requestID,omitempty"`
+	ExpectedCompletionTimestamp int64               `json:"expectedCompletionTimestamp,omitempty"`
+	//RedirectURL                 string              `json:"redirectUrl,omitempty"`
 }
 
 func (r *DeleteResponseBody) ValidateWithContext(ctx context.Context) error {

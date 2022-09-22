@@ -17,7 +17,7 @@ func (suite *SmokeTestSuite) TestAccessCallback() {
 			UID:    uuid.New().String(),
 			Tenant: "axonic",
 		},
-		Event: &types.AccessStatusEventBody{
+		Event: &types.AccessResponseBody{
 			Status:                      types.CompletedRequestStatus,
 			Reason:                      types.OtherRequestStatusReason,
 			ExpectedCompletionTimestamp: time.Now().Unix(),
@@ -37,7 +37,7 @@ func (suite *SmokeTestSuite) TestDeleteCallback() {
 			UID:    uuid.New().String(),
 			Tenant: "axonic",
 		},
-		Event: &types.DeleteStatusEventBody{
+		Event: &types.DeleteResponseBody{
 			Status:                      types.CompletedRequestStatus,
 			Reason:                      types.OtherRequestStatusReason,
 			ExpectedCompletionTimestamp: time.Now().Unix(),

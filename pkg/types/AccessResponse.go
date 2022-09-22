@@ -36,9 +36,10 @@ func (r *AccessResponse) GetMetadata() *Metadata {
 type AccessResponseBody struct {
 	Status                      RequestStatus       `json:"status,omitempty"`
 	Reason                      RequestStatusReason `json:"reason,omitempty"`
+	RequestID                   string              `json:"requestID,omitempty"`
 	ExpectedCompletionTimestamp int64               `json:"expectedCompletionTimestamp,omitempty"`
-	RedirectURL                 string              `json:"redirectUrl,omitempty"`
 	Results                     []*Callback         `json:"results,omitempty"`
+	//RedirectURL                 string              `json:"redirectUrl,omitempty"`
 }
 
 func (r *AccessResponseBody) ValidateWithContext(ctx context.Context) error {

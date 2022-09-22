@@ -9,7 +9,7 @@ import (
 )
 
 // NewListener returns a net.Listener for the given config
-func NewListener(ctx context.Context, config Config /*, serverTLS tls.ServerProvider*/) (net.Listener, error) {
+func NewListener(ctx context.Context, config Config) (net.Listener, error) {
 	l := log.WithContext(ctx).WithField("addr", config.Addr())
 
 	// Start listening

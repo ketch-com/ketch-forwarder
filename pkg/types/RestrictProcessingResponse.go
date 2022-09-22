@@ -36,8 +36,9 @@ func (r *RestrictProcessingResponse) GetMetadata() *Metadata {
 type RestrictProcessingResponseBody struct {
 	Status                      RequestStatus       `json:"status,omitempty"`
 	Reason                      RequestStatusReason `json:"reason,omitempty"`
+	RequestID                   string              `json:"requestID,omitempty"`
 	ExpectedCompletionTimestamp int64               `json:"expectedCompletionTimestamp,omitempty"`
-	RedirectURL                 string              `json:"redirectUrl,omitempty"`
+	//RedirectURL                 string              `json:"redirectUrl,omitempty"`
 }
 
 func (r *RestrictProcessingResponseBody) ValidateWithContext(ctx context.Context) error {

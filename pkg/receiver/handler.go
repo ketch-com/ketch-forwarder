@@ -204,9 +204,9 @@ func (h *Handler) HandleAccessRequest(ctx context.Context, request *types.Access
 		Metadata:   request.Metadata,
 		Response: &types.AccessResponseBody{
 			Status:                      types.PendingRequestStatus,
-			Reason:                      types.NeedUserVerificationRequestStatusReason,
+			Reason:                      types.OtherRequestStatusReason,
 			ExpectedCompletionTimestamp: time.Now().Add(45 * 24 * time.Hour).Unix(),
-			RedirectURL:                 "https://idverification/123",
+			//RedirectURL:                 "https://idverification/123",
 		},
 	}
 
@@ -221,9 +221,9 @@ func (h *Handler) HandleCorrectionRequest(ctx context.Context, request *types.Co
 		Metadata:   request.Metadata,
 		Response: &types.CorrectionResponseBody{
 			Status:                      types.PendingRequestStatus,
-			Reason:                      types.NeedUserVerificationRequestStatusReason,
+			Reason:                      types.OtherRequestStatusReason,
 			ExpectedCompletionTimestamp: time.Now().Add(45 * 24 * time.Hour).Unix(),
-			RedirectURL:                 "https://idverification/123",
+			//RedirectURL:                 "https://idverification/123",
 		},
 	}
 	return resp, nil
@@ -237,9 +237,9 @@ func (h *Handler) HandleDeleteRequest(ctx context.Context, request *types.Delete
 		Metadata:   request.Metadata,
 		Response: &types.DeleteResponseBody{
 			Status:                      types.PendingRequestStatus,
-			Reason:                      types.NeedUserVerificationRequestStatusReason,
+			Reason:                      types.OtherRequestStatusReason,
 			ExpectedCompletionTimestamp: time.Now().Add(45 * 24 * time.Hour).Unix(),
-			RedirectURL:                 "https://idverification/123",
+			//RedirectURL:                 "https://idverification/123",
 		},
 	}
 	return resp, nil

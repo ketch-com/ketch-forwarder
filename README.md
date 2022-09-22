@@ -39,10 +39,10 @@ For the examples below, a result could be configured as follows (note this URL d
 
 ## Delete
 
-A Delete request is initiated when a Data Subject selects a right that allows for deleting of personal data.
+A Delete request is initiated when a [Data Subject](#Subject) selects a right that allows for deleting of personal data.
 
 To forward a Data Subject Request, Ketch sends a message using the POST method to the configured endpoint. The format of 
-the message and expected responses depend on the type of right invoked by the Data Subject.
+the message and expected responses depend on the type of right invoked by the [Data Subject](#Subject).
 
 ![](https://lucid.app/publicSegments/view/acf2f881-fd25-4e98-98c1-3d803f81ed89/image.png)
 
@@ -106,50 +106,28 @@ Authorization: Bearer $auth
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `DeleteRequest`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *request.controller* - code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
-* *request.property* - code of the digital property defined in Ketch
-* *request.environment* - code environment defined in Ketch
-* *request.regulation* - code of the regulation defined in Ketch
-* *request.jurisdiction* - code of the jurisdiction defined in Ketch
-* *request.identities* - array of [Identities](#Identity)
-* *request.callbacks* - array of [Callbacks](#Callback)
-* *request.subject* - the [Data Subject](#Subject)
-* *request.claims* - map containing additional non-identity claims that have been added via identity verification or other
-  augmentation methods. Identity claims should be included in `request.identities`.
-* *request.submittedTimestamp* - UNIX timestamp in seconds
-* *request.dueTimestamp* - UNIX timestamp in seconds
-
-#### Callback
-
-* *url* - URL of the callback endpoint
-* *headers* - map of headers to send to the callback endpoint
-
-#### Identity
-
-* *identitySpace* - identity space code setup in Ketch
-* *identityFormat* - format of the identity value (`raw`, `md5`, `sha1`)
-* *identityValue* - value of the identity
-
-#### Subject
-
-* *email* - email address provided by the Data Subject
-* *firstName* - first name provided by the Data Subject
-* *lastName* - last name provided by the Data Subject
-* *addressLine1* - address line 1 provided by the Data Subject
-* *addressLine2* - address line 2 provided by the Data Subject
-* *city* - city provided by the Data Subject
-* *stateRegionCode* - state/region code (e.g., CA) provided by the Data Subject
-* *postalCode* - zip/postal code provided by the Data Subject
-* *countryCode* - two-character ISO country code (e.g., US) provided by the Data Subject
-* *description* - free-text description provided by the Data Subject
+| name                         | required? | description                                                                                                                                                                            |
+|------------------------------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| *apiVersion*                 | yes       | API version. Must be `dsr/v1`                                                                                                                                                          |
+| *kind*                       | yes       | Must be `DeleteRequest`                                                                                                                                                                |
+| *metadata*                   | yes       | [Metadata](#Metadata) object                                                                                                                                                           |
+| *request.controller*         | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`                                                                    |
+| *request.property*           | yes       | Code of the digital property defined in Ketch                                                                                                                                          |
+| *request.environment*        | yes       | Code environment defined in Ketch                                                                                                                                                      |
+| *request.regulation*         | yes       | Code of the regulation defined in Ketch                                                                                                                                                |
+| *request.jurisdiction*       | yes       | Code of the jurisdiction defined in Ketch                                                                                                                                              |
+| *request.identities*         | yes       | Array of [Identities](#Identity)                                                                                                                                                       |
+| *request.callbacks*          | no        | Array of [Callbacks](#Callback)                                                                                                                                                        |
+| *request.subject*            | yes       | The [Data Subject](#Subject)                                                                                                                                                           |
+| *request.claims*             | no        | Map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities` |
+| *request.submittedTimestamp* | yes       | UNIX timestamp in seconds when the request was submitted.                                                                                                                              |
+| *request.dueTimestamp*       | yes       | UNIX timestamp in seconds when the request must be completed by.                                                                                                                       |
 
 ### Successful Delete Response
 
-Headers:
+A successful response MUST include the `200 OK` response status code and a `DeleteResponse` JSON object. The `Content-Type`
+MUST be `application/json`.
+
 ```http request
 HTTP/1.1 200 OK
 Content-Type: application/json
@@ -163,56 +141,31 @@ Content-Length: 238
     "tenant": "axonic"
   },
   "response": {
-    "status": "pending",
-    "reason": "need_user_verification",
+    "status": "in_progress",
+    "reason": "other",
     "expectedCompletionTimestamp": 123,
-    "redirectUrl": "https://verifyidentity.com/123"
+    "requestID": "abc123"
   }
 }
 ```
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `DeleteResponse`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *response.status* - the [status](#Status) of the Data Subject Request
-* *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
-* *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
-* *response.redirectUrl* - if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to
+| name                                   | required? | description                                                                      |
+|----------------------------------------|-----------|----------------------------------------------------------------------------------|
+| *apiVersion*                           | yes       | API version. Must be `dsr/v1`                                                    |
+| *kind*                                 | yes       | Message kind. Must be `DeleteResponse`                                           |
+| *metadata*                             | yes       | [Metadata](#Metadata) object                                                     |
+| *response.status*                      | yes       | The [status](#Status) of the Data Subject Request                                |
+| *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                 |
+| *response.expectedCompletionTimestamp* | no        | The UNIX timestamp at which the Data Subject Request is expected to be completed |
+| *response.requestID*                   | no        | The request ID known to the destination system                                   | 
+
+<!-- | *response.redirectUrl* | no | If the [Data Subject](#Subject) should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the [Data Subject](#Subject) to | --> 
 
 ### Delete Error Response
 
-```http request
-HTTP/1.1 404 Not Found
-Content-Type: application/json
-Content-Length: 238
-
-{
-  "apiVersion": "dsr/v1",
-  "kind": "Error",
-  "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
-    "tenant": "axonic"
-  },
-  "error": {
-    "code": 404,
-    "status": "not_found",
-    "message": "Not found"
-  }
-}
-```
-
-#### Fields
-
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `Error`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *error.code* - the HTTP status code
-* *error.status* - a string code representing the error
-* *error.message* - a user-friendly error message (e.g., `"Not found"`)
+If an error occurs, a standard [Error](#Error) object is returned.
 
 ### Delete Status Event
 
@@ -241,17 +194,21 @@ Accept: application/json
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `DeleteStatusEvent`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *response.status* - the [status](#Status) of the Data Subject Request
-* *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
-* *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
+| name                                   | required? | description                                                                       |
+|----------------------------------------|-----------|-----------------------------------------------------------------------------------|
+| *apiVersion*                           | yes       | API version. Must be `dsr/v1`                                                     |
+| *kind*                                 | yes       | Message kind. Must be `DeleteStatusEvent`                                         |
+| *metadata*                             | yes       | [Metadata](#Metadata) object                                                      |
+| *response.status*                      | yes       | The [status](#Status) of the Data Subject Request                                 |
+| *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                  |
+| *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed |
+| *response.requestID*                   | no        | The request ID known to the destination system                                    |
+
+<!-- | *response.redirectUrl* | no | If the [Data Subject](#Subject) should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the [Data Subject](#Subject) to | --> 
 
 ## Access
 
-An Access Request is initiated when a Data Subject invokes a right that allows Access/Portability of personal data.
+An Access Request is initiated when a [Data Subject](#Subject) invokes a right that allows Access/Portability of personal data.
 
 ![](https://lucid.app/publicSegments/view/a3a82c6d-1057-435b-966f-125ab982b59f/image.png)
 
@@ -315,47 +272,27 @@ Authorization: Bearer $auth
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `AccessRequest`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *request.controller* - code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
-* *request.property* - code of the digital property defined in Ketch
-* *request.environment* - code environment defined in Ketch
-* *request.regulation* - code of the regulation defined in Ketch
-* *request.jurisdiction* - code of the jurisdiction defined in Ketch
-* *request.identities* - array of [Identities](#Identity)
-* *request.callbacks* - array of [Callbacks](#Callback)
-* *request.subject* - the [Data Subject](#Subject)
-* *request.claims* - map containing additional claims that have been added via identity verification or other augmentation methods
-* *request.submittedTimestamp* - UNIX timestamp in seconds
-* *request.dueTimestamp* - UNIX timestamp in seconds
-
-#### Callback
-
-* *url* - URL of the callback endpoint
-* *headers* - map of headers to send to the callback endpoint
-
-#### Identity
-
-* *identitySpace* - identity space code setup in Ketch
-* *identityFormat* - format of the identity value (`raw`, `md5`, `sha1`)
-* *identityValue* - value of the identity
-
-#### Subject
-
-* *email* - email address provided by the Data Subject
-* *firstName* - first name provided by the Data Subject
-* *lastName* - last name provided by the Data Subject
-* *addressLine1* - address line 1 provided by the Data Subject
-* *addressLine2* - address line 2 provided by the Data Subject
-* *city* - city provided by the Data Subject
-* *stateRegionCode* - state/region code (e.g., CA) provided by the Data Subject
-* *postalCode* - zip/postal code provided by the Data Subject
-* *countryCode* - two-character ISO country code (e.g., US) provided by the Data Subject
-* *description* - free-text description provided by the Data Subject
+| name                         | required? | description                                                                                                         |
+|------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
+| *apiVersion*                 | yes       | API version. Must be `dsr/v1`                                                                                       |
+| *kind*                       | yes       | Message kind. Must be `AccessRequest`                                                                               |
+| *metadata*                   | yes       | [Metadata](#Metadata) object                                                                                        |
+| *request.controller*         | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant` |
+| *request.property*           | yes       | Code of the digital property defined in Ketch                                                                       |
+| *request.environment*        | yes       | Code environment defined in Ketch                                                                                   |
+| *request.regulation*         | yes       | Code of the regulation defined in Ketch                                                                             |
+| *request.jurisdiction*       | yes       | Code of the jurisdiction defined in Ketch                                                                           |
+| *request.identities*         | yes       | Array of [Identities](#Identity)                                                                                    |
+| *request.callbacks*          | no        | Array of [Callbacks](#Callback)                                                                                     |
+| *request.subject*            | yes       | The [Data Subject](#Subject)                                                                                        |
+| *request.claims*             | no        | Map containing additional claims that have been added via identity verification or other augmentation methods       |
+| *request.submittedTimestamp* | yes       | UNIX timestamp in seconds                                                                                           |
+| *request.dueTimestamp*       | yes       | UNIX timestamp in seconds                                                                                           |
 
 ### Successful Access Response
+
+A successful response MUST include the `200 OK` response status code and a `AccessResponse` JSON object. The `Content-Type`
+MUST be `application/json`.
 
 ```http request
 HTTP/1.1 200 OK
@@ -369,10 +306,8 @@ Content-Type: application/json
     "tenant": "axonic"
   },
   "response": {
-    "status": "pending",
-    "reason": "need_user_verification",
+    "status": "in_progress",
     "expectedCompletionTimestamp": 123,
-    "redirectUrl": "https://verifyidentity.com/123",
     "results": []
   }
 }
@@ -380,47 +315,22 @@ Content-Type: application/json
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `AccessResponse`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *response.status* - the [status](#Status) of the Data Subject Request
-* *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
-* *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
-* *response.redirectUrl* - if the Data Subject should be redirected to a URL (perhaps for confirmation)
-* *response.results* - array of [Callbacks](#Callback) that can be used to download the contents requested
+| name                                   | required? | description                                                                           |
+|----------------------------------------|-----------|---------------------------------------------------------------------------------------|
+| *apiVersion*                           | yes       | API version. Must be `dsr/v1`                                                         |
+| *kind*                                 | yes       | Message kind. Must be `AccessResponse`                                                |
+| *metadata*                             | yes       | [Metadata](#Metadata) object                                                          |
+| *response.status*                      | yes       | The [status](#Status) of the Data Subject Request                                     |
+| *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request. Default is `other`. |
+| *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed     |
+| *response.results*                     | no        | Array of [Callbacks](#Callback) that can be used to download the contents requested   |
+| *response.requestID*                   | no        | The request ID known to the destination system                                        |
+
+<!-- | *response.redirectUrl* | no        | if the [Data Subject](#Subject) should be redirected to a URL (perhaps for confirmation)         | -->
 
 ### Access Error Response
 
-```http request
-HTTP/1.1 404 Not Found
-Content-Type: application/json
-Content-Length: 238
-
-{
-  "apiVersion": "dsr/v1",
-  "kind": "Error",
-  "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
-    "tenant": "axonic"
-  },
-  "error": {
-    "code": 404,
-    "status": "not_found",
-    "message": "Not found"
-  }
-}
-```
-
-#### Fields
-
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `Error`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *error.code* - the HTTP status code
-* *error.status* - a string code representing the error
-* *error.message* - a user-friendly error message (e.g., `"Not found"`)
+If an error occurs, a standard [Error](#Error) object is returned.
 
 ### Access Status Event
 
@@ -459,18 +369,20 @@ Accept: application/json
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `AccessStatusEvent`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *response.status* - the [status](#Status) of the Data Subject Request
-* *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
-* *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
-* *response.results* - array of [Callbacks](#Callback) that can be used to download the contents requested
+| name                                   | required? | description                                                                         |
+|----------------------------------------|-----------|-------------------------------------------------------------------------------------|
+| *apiVersion*                           | yes       | API version. Must be `dsr/v1`                                                       |
+| *kind*                                 | yes       | Message kind. Must be `AccessStatusEvent`                                           |
+| *metadata*                             | yes       | [Metadata](#Metadata) object                                                        |
+| *response.status*                      | yes       | The [status](#Status) of the Data Subject Request                                   |
+| *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                    |
+| *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed   |
+| *response.results*                     | no        | Array of [Callbacks](#Callback) that can be used to download the contents requested |
+| *response.requestID*                   | no        | The request ID known to the destination system                                      |
 
 ## Restrict Processing
 
-A Restrict Processing Request is initiated when a Data Subject invokes a right that allows restriction of processing
+A Restrict Processing Request is initiated when a [Data Subject](#Subject) invokes a right that allows restriction of processing
 of personal data.
 
 ### Restrict Processing Request
@@ -538,48 +450,28 @@ Authorization: Bearer $auth
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `RestrictProcessingRequest`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *request.controller* - code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
-* *request.property* - code of the digital property defined in Ketch
-* *request.environment* - code environment defined in Ketch
-* *request.regulation* - code of the regulation defined in Ketch
-* *request.jurisdiction* - code of the jurisdiction defined in Ketch
-* *request.purposes* - list of purpose codes defined in Ketch
-* *request.identities* - array of [Identities](#Identity)
-* *request.callbacks* - array of [Callbacks](#Callback)
-* *request.subject* - the [Data Subject](#Subject)
-* *request.claims* - map containing additional claims that have been added via identity verification or other augmentation methods
-* *request.submittedTimestamp* - UNIX timestamp in seconds
-* *request.dueTimestamp* - UNIX timestamp in seconds
-
-#### Callback
-
-* *url* - URL of the callback endpoint
-* *headers* - map of headers to send to the callback endpoint
-
-#### Identity
-
-* *identitySpace* - identity space code setup in Ketch
-* *identityFormat* - format of the identity value (`raw`, `md5`, `sha1`)
-* *identityValue* - value of the identity
-
-#### Subject
-
-* *email* - email address provided by the Data Subject
-* *firstName* - first name provided by the Data Subject
-* *lastName* - last name provided by the Data Subject
-* *addressLine1* - address line 1 provided by the Data Subject
-* *addressLine2* - address line 2 provided by the Data Subject
-* *city* - city provided by the Data Subject
-* *stateRegionCode* - state/region code (e.g., CA) provided by the Data Subject
-* *postalCode* - zip/postal code provided by the Data Subject
-* *countryCode* - two-character ISO country code (e.g., US) provided by the Data Subject
-* *description* - free-text description provided by the Data Subject
+| name                         | required? | description                                                                                                         |
+|------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
+| *apiVersion*                 | yes       | API version. Must be `dsr/v1`                                                                                       |
+| *kind*                       | yes       | Message kind. Must be `RestrictProcessingRequest`                                                                   |
+| *metadata*                   | yes       | [Metadata](#Metadata) object                                                                                        |
+| *request.controller*         | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant` |
+| *request.property*           | yes       | Code of the digital property defined in Ketch                                                                       |
+| *request.environment*        | yes       | Code environment defined in Ketch                                                                                   |
+| *request.regulation*         | yes       | Code of the regulation defined in Ketch                                                                             |
+| *request.jurisdiction*       | yes       | Code of the jurisdiction defined in Ketch                                                                           |
+| *request.purposes*           | yes       | List of purpose codes defined in Ketch                                                                              |
+| *request.identities*         | yes       | Array of [Identities](#Identity)                                                                                    |
+| *request.callbacks*          | no        | Array of [Callbacks](#Callback)                                                                                     |
+| *request.subject*            | yes       | The [Data Subject](#Subject)                                                                                        |
+| *request.claims*             | no        | Map containing additional claims that have been added via identity verification or other augmentation methods       |
+| *request.submittedTimestamp* | yes       | UNIX timestamp in seconds                                                                                           |
+| *request.dueTimestamp*       | yes       | UNIX timestamp in seconds                                                                                           |
 
 ### Successful Restrict Processing Response
+
+A successful response MUST include the `200 OK` response status code and a `RestrictProcessingResponse` JSON object. The `Content-Type`
+MUST be `application/json`.
 
 ```http request
 HTTP/1.1 200 OK
@@ -594,55 +486,28 @@ Content-Type: application/json
   },
   "response": {
     "status": "pending",
-    "reason": "need_user_verification",
-    "expectedCompletionTimestamp": 123,
-    "redirectUrl": "https://verifyidentity.com/123",
+    "expectedCompletionTimestamp": 123
   }
 }
 ```
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `RestrictProcessingResponse`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *response.status* - the [status](#Status) of the Data Subject Request
-* *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
-* *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
-* *response.redirectUrl* - if the Data Subject should be redirected to a URL (perhaps for confirmation)
+| name                                   | required? | description                                                                       |
+|----------------------------------------|-----------|-----------------------------------------------------------------------------------|
+| *apiVersion*                           | yes       | API version. Must be `dsr/v1`                                                     |
+| *kind*                                 | yes       | Message kind. Must be `RestrictProcessingResponse`                                |
+| *metadata*                             | yes       | [Metadata](#Metadata) object                                                      |
+| *response.status*                      | yes       | The [status](#Status) of the Data Subject Request                                 |
+| *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                  |
+| *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed |
+| *response.requestID*                   | no        | The request ID known to the destination system                                    |
+
+<!-- | *response.redirectUrl*                 | no        | If the [Data Subject](#Subject) should be redirected to a URL (perhaps for confirmation)      | -->
 
 ### Restrict Processing Error Response
 
-```http request
-HTTP/1.1 404 Not Found
-Content-Type: application/json
-Content-Length: 238
-
-{
-  "apiVersion": "dsr/v1",
-  "kind": "Error",
-  "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
-    "tenant": "axonic"
-  },
-  "error": {
-    "code": 404,
-    "status": "not_found",
-    "message": "Not found"
-  }
-}
-```
-
-#### Fields
-
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `Error`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *error.code* - the HTTP status code
-* *error.status* - a string code representing the error
-* *error.message* - a user-friendly error message (e.g., `"Not found"`)
+If an error occurs, a standard [Error](#Error) object is returned.
 
 ### Restrict Processing Status Event
 
@@ -673,17 +538,19 @@ Accept: application/json
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `RestrictProcessingStatusEvent`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *response.status* - the [status](#Status) of the Data Subject Request
-* *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
-* *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
+| name                                   | required? | description                                                                       |
+|----------------------------------------|-----------|-----------------------------------------------------------------------------------|
+| *apiVersion*                           | yes       | API version. Must be `dsr/v1`                                                     |
+| *kind*                                 | yes       | Message kind. Must be `RestrictProcessingStatusEvent`                             |
+| *metadata*                             | yes       | [Metadata](#Metadata) object                                                      |
+| *response.status*                      | yes       | The [status](#Status) of the Data Subject Request                                 |
+| *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                  |
+| *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed |
+| *response.requestID*                   | no        | The request ID known to the destination system                                    |
 
 ## Correction
 
-A Correction Request is initiated when a Data Subject invokes a right that allows correction of personal data. Note that
+A Correction Request is initiated when a [Data Subject](#Subject) invokes a right that allows correction of personal data. Note that
 only the basic details are transported since collecting specific correction details are currently beyond the scope.
 
 ### Correction Request
@@ -746,47 +613,27 @@ Authorization: Bearer $auth
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `CorrectionRequest`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *request.controller* - code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
-* *request.property* - code of the digital property defined in Ketch
-* *request.environment* - code environment defined in Ketch
-* *request.regulation* - code of the regulation defined in Ketch
-* *request.jurisdiction* - code of the jurisdiction defined in Ketch
-* *request.identities* - array of [Identities](#Identity)
-* *request.callbacks* - array of [Callbacks](#Callback)
-* *request.subject* - the [Data Subject](#Subject)
-* *request.claims* - map containing additional claims that have been added via identity verification or other augmentation methods
-* *request.submittedTimestamp* - UNIX timestamp in seconds
-* *request.dueTimestamp* - UNIX timestamp in seconds
-
-#### Callback
-
-* *url* - URL of the callback endpoint
-* *headers* - map of headers to send to the callback endpoint
-
-#### Identity
-
-* *identitySpace* - identity space code setup in Ketch
-* *identityFormat* - format of the identity value (`raw`, `md5`, `sha1`)
-* *identityValue* - value of the identity
-
-#### Subject
-
-* *email* - email address provided by the Data Subject
-* *firstName* - first name provided by the Data Subject
-* *lastName* - last name provided by the Data Subject
-* *addressLine1* - address line 1 provided by the Data Subject
-* *addressLine2* - address line 2 provided by the Data Subject
-* *city* - city provided by the Data Subject
-* *stateRegionCode* - state/region code (e.g., CA) provided by the Data Subject
-* *postalCode* - zip/postal code provided by the Data Subject
-* *countryCode* - two-character ISO country code (e.g., US) provided by the Data Subject
-* *description* - free-text description provided by the Data Subject
+| name                         | required? | description                                                                                                         |
+|------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
+| *apiVersion*                 | yes       | API version. Must be `dsr/v1`                                                                                       |
+| *kind*                       | yes       | Message kind. Must be `CorrectionRequest`                                                                           |
+| *metadata*                   | yes       | [Metadata](#Metadata) object                                                                                        |
+| *request.controller*         | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant` |
+| *request.property*           | yes       | Code of the digital property defined in Ketch                                                                       |
+| *request.environment*        | yes       | Code environment defined in Ketch                                                                                   |
+| *request.regulation*         | yes       | Code of the regulation defined in Ketch                                                                             |
+| *request.jurisdiction*       | yes       | Code of the jurisdiction defined in Ketch                                                                           |
+| *request.identities*         | yes       | Array of [Identities](#Identity)                                                                                    |
+| *request.callbacks*          | no        | Array of [Callbacks](#Callback)                                                                                     |
+| *request.subject*            | yes       | The [Data Subject](#Subject)                                                                                        |
+| *request.claims*             | no        | Map containing additional claims that have been added via identity verification or other augmentation methods       |
+| *request.submittedTimestamp* | yes       | UNIX timestamp in seconds                                                                                           |
+| *request.dueTimestamp*       | yes       | UNIX timestamp in seconds                                                                                           |
 
 ### Successful Correction Response
+
+A successful response MUST include the `200 OK` response status code and a `CorrectionResponse` JSON object. The `Content-Type`
+MUST be `application/json`.
 
 ```http request
 HTTP/1.1 200 OK
@@ -800,56 +647,29 @@ Content-Type: application/json
     "tenant": "axonic"
   },
   "response": {
-    "status": "pending",
-    "reason": "need_user_verification",
-    "expectedCompletionTimestamp": 123,
-    "redirectUrl": "https://verifyidentity.com/123",
+    "status": "in_progress",
+    "expectedCompletionTimestamp": 123
   }
 }
 ```
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `CorrectionResponse`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *response.status* - the [status](#Status) of the Data Subject Request
-* *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
-* *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
-* *response.redirectUrl* - if the Data Subject should be redirected to a URL (perhaps for confirmation)
+| name                                   | required? | description                                                                       |
+|----------------------------------------|-----------|-----------------------------------------------------------------------------------|
+| *apiVersion*                           | yes       | API version. Must be `dsr/v1`                                                     |
+| *kind*                                 | yes       | Message kind. Must be `CorrectionResponse`                                        |
+| *metadata*                             | yes       | [Metadata](#Metadata) object                                                      |
+| *response.status*                      | yes       | The [status](#Status) of the Data Subject Request                                 |
+| *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                  |
+| *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed |
+| *response.requestID*                   | no        | The request ID known to the destination system                                    |
+
+<!-- | *response.redirectUrl* | no | If the [Data Subject](#Subject) should be redirected to a URL (perhaps for confirmation)     | -->
 
 ### Correction Error Response
 
-```http request
-HTTP/1.1 404 Not Found
-Content-Type: application/json
-Content-Length: 238
-
-{
-  "apiVersion": "dsr/v1",
-  "kind": "Error",
-  "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
-    "tenant": "axonic"
-  },
-  "error": {
-    "code": 404,
-    "status": "not_found",
-    "message": "Not found"
-  }
-}
-```
-
-#### Fields
-
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `Error`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *error.code* - the HTTP status code
-* *error.status* - a string code representing the error
-* *error.message* - a user-friendly error message (e.g., `"Not found"`)
+If an error occurs, a standard [Error](#Error) object is returned.
 
 ### Correction Status Event
 
@@ -879,38 +699,170 @@ Accept: application/json
 
 #### Fields
 
-* *apiVersion* - must be `dsr/v1`
-* *kind* - must be `CorrectionStatusEvent`
-* *metadata.uid* - will be a unique UUIDv4, and uniquely identifies the request
-* *metadata.tenant* - will be the Ketch tenant code where the request originated
-* *response.status* - the [status](#Status) of the Data Subject Request
-* *response.reason* - the [reason](#Reason) for the status of the Data Subject Request
-* *response.expectedCompletionTimestamp* - the UNIX time stamp at which the Data Subject Request is expected to be completed
+| name                                   | required? | description                                                                       |
+|----------------------------------------|-----------|-----------------------------------------------------------------------------------|
+| *apiVersion*                           | yes       | API version. Must be `dsr/v1`                                                     |
+| *kind*                                 | yes       | Message kind. Must be `CorrectionStatusEvent`                                     |
+| *metadata*                             | yes       | [Metadata](#Metadata) object                                                      |
+| *response.status*                      | yes       | The [status](#Status) of the Data Subject Request                                 |
+| *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                  |
+| *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed |
+| *response.requestID*                   | no        | The request ID known to the destination system                                    |
 
-## Status
+## Common objects
+
+### Metadata
+
+| name     | required? | description                                                  |
+|----------|-----------|--------------------------------------------------------------|
+| *uid*    | yes       | Will be a unique UUIDv4, and uniquely identifies the request |
+| *tenant* | yes       | Will be the Ketch tenant code where the request originated   |
+
+### Error
+
+An Error MUST be returned with the appropriate HTTP status code with an `Error` JSON object. The `Content-Type` must
+be `application/json`.
+
+```http request
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: 238
+
+{
+  "apiVersion": "dsr/v1",
+  "kind": "Error",
+  "metadata": {
+    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "tenant": "axonic"
+  },
+  "error": {
+    "code": 404,
+    "status": "not_found",
+    "message": "Not found"
+  }
+}
+```
+
+#### Fields
+
+| name              | required? | description                                                  |
+|-------------------|-----------|--------------------------------------------------------------|
+| *apiVersion*      | yes       | API version. Must be `dsr/v1`                                |
+| *kind*            | yes       | Message kind. Must be `Error`                                |
+| *metadata*        | yes       | [Metadata](#Metadata) object                                 |
+| *error.code*      | yes       | The HTTP status code                                         |
+| *error.status*    | yes       | A string code representing the error                         |
+| *error.message*   | yes       | A user-friendly error message (e.g., `"Not found"`)          |
+
+### Callback
+
+The Callback object defines a URL and associated headers to be used for communicating information.
+
+```json
+{
+  "url": "https://dsr.ketch.com/callback",
+  "headers": {
+    "Authorization": "Bearer $auth"
+  }
+}
+```
+
+#### Fields
+
+| name      | required? | description                                     |
+|-----------|-----------|-------------------------------------------------|
+| *url*     | yes       | URL of the callback endpoint                    |
+| *headers* | no        | map of headers to send to the callback endpoint |
+
+### Identity
+
+The Identity object describes the identity of a [Data Subject](#Subject).
+
+```json
+{
+  "identitySpace": "account_id",
+  "identityFormat": "raw",
+  "identityValue": "123"
+}
+```
+
+#### Fields
+
+| name             | required? | description                                                            |
+|------------------|-----------|------------------------------------------------------------------------|
+| *identitySpace*  | yes       | Identity space code setup in Ketch                                     |
+| *identityFormat* | no        | Format of the identity value (`raw`, `md5`, `sha1`). Default is `raw`. |
+| *identityValue*  | yes       | Value of the identity                                                  |
+
+### Subject
+
+The Subject object describes the Data Subject making the request.
+
+```json
+{
+  "email": "test@subject.com",
+  "firstName": "Test",
+  "lastName": "Subject",
+  "addressLine1": "123 Main St",
+  "addressLine2": "",
+  "city": "Anytown",
+  "stateRegionCode": "MA",
+  "postalCode": "10123",
+  "countryCode": "US",
+  "description": "Restrict my data"
+}
+```
+
+#### Fields
+
+| name              | required? | description                                                            |
+|-------------------|-----------|------------------------------------------------------------------------|
+| *email*           | yes       | Email address provided by the Data Subject                             |
+| *firstName*       | yes       | First name provided by the Data Subject                                |
+| *lastName*        | yes       | Last name provided by the Data Subject                                 |
+| *addressLine1*    | no        | Address line 1 provided by the Data Subject                            |
+| *addressLine2*    | no        | Address line 2 provided by the Data Subject                            |
+| *city*            | no        | City provided by the Data Subject                                      |
+| *stateRegionCode* | no        | State/region code (e.g., CA) provided by the Data Subject              |
+| *postalCode*      | no        | Zip/postal code provided by the Data Subject                           |
+| *countryCode*     | no        | Two-character ISO country code (e.g., US) provided by the Data Subject |
+| *description*     | no        | Free-text description provided by the Data Subject                     |
+
+### Status
 
 The `status` of a Request progresses through the following state/activity diagram:
 
 ![](https://lucid.app/publicSegments/view/61b83862-bbc8-41b1-bdae-d92b7bf87af6/image.png)
 
-### Status code
+Note that multiple Status events can be received with each status. For example, a callback may be called daily with
+a status of `in_progress` until finally the final status is sent with status of `completed`.
 
-* *unknown* - the status is unknown
-* *pending* - the request is pending approval
-* *in_progress* - the request is in progress
-* *completed* - the request has been completed
-* *cancelled* - the request has been cancelled
-* *denied* - the request has been denied
+If a `Response` does not include return a status of `completed`, `cancelled` or `denied`, then a subsequent `StatusEvent`
+event MUST be sent to the callbacks with one of those statuses. Otherwise, the request will be marked as failed after
+some time.
 
-### Reason
+#### Status code
 
-* *unknown* - the reason for the status is unknown
-* *need_user_verification* - the status is pending because the Data Subject needs to complete identity verification
-* *suspected_fraud* - the status is denied because the request is suspected fraud
-* *insufficient_verification* - the status is denied because the Data Subject has insufficiently completed identity verification
-* *no_match* - the status is cancelled/denied because there is no match for the Data Subject
-* *claim_not_covered* - the status is cancelled/denied because the claim is not covered
-* *outside_jurisdiction* - the status is cancelled/denied because the Data Subject is outside the covered jurisdiction
-* *too_many_requests* - the status is cancelled/denied because the Data Subject has made too many requests
-* *other* - the reason for the status some other reason 
+| name          | description                     |
+|---------------|---------------------------------|
+| *unknown*     | the status is unknown           |
+| *pending*     | the request is pending approval |
+| *in_progress* | the request is in progress      |
+| *completed*   | the request has been completed  | 
+| *cancelled*   | the request has been cancelled  |
+| *denied*      |  the request has been denied    |
 
+#### Reason
+
+| name                        | description                                                                                                  |
+|-----------------------------|--------------------------------------------------------------------------------------------------------------|
+| *unknown*                   | the reason for the status is unknown                                                                         |
+| *suspected_fraud*           | the status is denied because the request is suspected fraud                                                  |
+| *insufficient_verification* | the status is denied because the [Data Subject](#Subject) has insufficiently completed identity verification |
+| *no_match*                  | the status is cancelled/denied because there is no match for the [Data Subject](#Subject)                    |
+| *claim_not_covered*         | the status is cancelled/denied because the claim is not covered                                              |
+| *outside_jurisdiction*      | the status is cancelled/denied because the [Data Subject](#Subject) is outside the covered jurisdiction      |
+| *too_many_requests*         | the status is cancelled/denied because the [Data Subject](#Subject) has made too many requests               |
+| *other*                     | the reason for the status some other reason                                                                  | 
+
+<!-- | *need_user_verification*    | the status is pending because the [Data Subject](#Subject) needs to complete identity verification           | -->
