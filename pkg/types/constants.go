@@ -31,7 +31,7 @@ var (
 	}
 	RequestStatusReasons = []any{
 		UnknownRequestStatusReason,
-		NeedUserVerificationRequestStatusReason,
+		//NeedUserVerificationRequestStatusReason,
 		SuspectedFraudRequestStatusReason,
 		InsufficientVerificationRequestStatusReason,
 		NoMatchRequestStatusReason,
@@ -75,7 +75,6 @@ type RequestStatusReason string
 
 const (
 	UnknownRequestStatusReason                  RequestStatusReason = "unknown"
-	NeedUserVerificationRequestStatusReason     RequestStatusReason = "need_user_verification"
 	SuspectedFraudRequestStatusReason           RequestStatusReason = "suspected_fraud"
 	InsufficientVerificationRequestStatusReason RequestStatusReason = "insufficient_verification"
 	NoMatchRequestStatusReason                  RequestStatusReason = "no_match"
@@ -83,4 +82,5 @@ const (
 	OutsideJurisdictionRequestStatusReason      RequestStatusReason = "outside_jurisdiction"
 	TooManyRequestsRequestStatusReason          RequestStatusReason = "too_many_requests"
 	OtherRequestStatusReason                    RequestStatusReason = "other"
+	//NeedUserVerificationRequestStatusReason     RequestStatusReason = "need_user_verification"
 )

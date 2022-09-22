@@ -43,6 +43,14 @@ func (c *CallbackClient) SendDeleteStatusEvent(ctx context.Context, request *typ
 	return c.send(ctx, request)
 }
 
+func (c *CallbackClient) SendCorrectionStatusEvent(ctx context.Context, request *types.CorrectionStatusEvent) error {
+	return c.send(ctx, request)
+}
+
+func (c *CallbackClient) SendRestrictProcessingStatusEvent(ctx context.Context, request *types.RestrictProcessingStatusEvent) error {
+	return c.send(ctx, request)
+}
+
 func (c *CallbackClient) send(ctx context.Context, request any) error {
 	buf := new(bytes.Buffer)
 

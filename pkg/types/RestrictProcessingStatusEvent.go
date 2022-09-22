@@ -6,10 +6,10 @@ import (
 )
 
 type RestrictProcessingStatusEvent struct {
-	ApiVersion string                             `json:"apiVersion,omitempty"`
-	Kind       Kind                               `json:"kind,omitempty"`
-	Metadata   *Metadata                          `json:"metadata,omitempty"`
-	Event      *RestrictProcessingStatusEventBody `json:"event,omitempty"`
+	ApiVersion string                          `json:"apiVersion,omitempty"`
+	Kind       Kind                            `json:"kind,omitempty"`
+	Metadata   *Metadata                       `json:"metadata,omitempty"`
+	Event      *RestrictProcessingResponseBody `json:"event,omitempty"`
 }
 
 func (r *RestrictProcessingStatusEvent) ValidateWithContext(ctx context.Context) error {
@@ -31,18 +31,4 @@ func (r *RestrictProcessingStatusEvent) GetKind() Kind {
 
 func (r *RestrictProcessingStatusEvent) GetMetadata() *Metadata {
 	return r.Metadata
-}
-
-type RestrictProcessingStatusEventBody struct {
-	Status                      RequestStatus       `json:"status,omitempty"`
-	Reason                      RequestStatusReason `json:"reason,omitempty"`
-	ExpectedCompletionTimestamp int64               `json:"expectedCompletionTimestamp,omitempty"`
-}
-
-func (r *RestrictProcessingStatusEventBody) ValidateWithContext(ctx context.Context) error {
-	return validation.ValidateStructWithContext(ctx, r,
-		validation.Field(&r.Status, validation.Required, validation.In(RequestStatuses...)),
-		validation.Field(&r.Reason, validation.When(len(r.Reason) > 0, validation.In(RequestStatusReasons...))),
-		validation.Field(&r.ExpectedCompletionTimestamp, validation.Required),
-	)
 }

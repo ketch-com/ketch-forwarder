@@ -1,7 +1,6 @@
 type: string
 enum:
   - unknown
-  - need_user_verification
   - suspected_fraud
   - insufficient_verification
   - no_match
@@ -9,4 +8,4 @@ enum:
   - outside_jurisdiction
   - too_many_requests
   - other
-
+#  - need_user_verification

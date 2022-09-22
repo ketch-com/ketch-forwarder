@@ -6,10 +6,10 @@ import (
 )
 
 type DeleteStatusEvent struct {
-	ApiVersion string                 `json:"apiVersion,omitempty"`
-	Kind       Kind                   `json:"kind,omitempty"`
-	Metadata   *Metadata              `json:"metadata,omitempty"`
-	Event      *DeleteStatusEventBody `json:"event,omitempty"`
+	ApiVersion string              `json:"apiVersion,omitempty"`
+	Kind       Kind                `json:"kind,omitempty"`
+	Metadata   *Metadata           `json:"metadata,omitempty"`
+	Event      *DeleteResponseBody `json:"event,omitempty"`
 }
 
 func (r *DeleteStatusEvent) ValidateWithContext(ctx context.Context) error {
@@ -31,18 +31,4 @@ func (r *DeleteStatusEvent) GetKind() Kind {
 
 func (r *DeleteStatusEvent) GetMetadata() *Metadata {
 	return r.Metadata
-}
-
-type DeleteStatusEventBody struct {
-	Status                      RequestStatus       `json:"status,omitempty"`
-	Reason                      RequestStatusReason `json:"reason,omitempty"`
-	ExpectedCompletionTimestamp int64               `json:"expectedCompletionTimestamp,omitempty"`
-}
-
-func (r *DeleteStatusEventBody) ValidateWithContext(ctx context.Context) error {
-	return validation.ValidateStructWithContext(ctx, r,
-		validation.Field(&r.Status, validation.Required, validation.In(RequestStatuses...)),
-		validation.Field(&r.Reason, validation.When(len(r.Reason) > 0, validation.In(RequestStatusReasons...))),
-		validation.Field(&r.ExpectedCompletionTimestamp, validation.Required),
-	)
 }
