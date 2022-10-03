@@ -8,4 +8,4 @@ properties:
   metadata:
     $ref: "./Metadata.yaml"
   request:
-    $ref: "./AllResponses.yaml"
+    $ref: "./AllRequests.yaml"

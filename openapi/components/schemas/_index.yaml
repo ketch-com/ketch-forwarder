@@ -46,6 +46,8 @@ DSRRequestStatusReason:
   $ref: "./DSRRequestStatusReason.yaml"
 Identity:
   $ref: "./Identity.yaml"
+Claims:
+  $ref: "./Claims.yaml"
 DSRRequestStatus:
   $ref: "./DSRRequestStatus.yaml"
 Response:

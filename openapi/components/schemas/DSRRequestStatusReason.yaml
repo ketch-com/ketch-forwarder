@@ -7,5 +7,6 @@ enum:
   - claim_not_covered
   - outside_jurisdiction
   - too_many_requests
-  - other
-#  - need_user_verification
+  - requested
+  - executed
+  #- need_user_verification

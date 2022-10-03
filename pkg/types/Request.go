@@ -11,7 +11,6 @@ type Request struct {
 	Kind       Kind            `json:"kind,omitempty"`
 	Metadata   *Metadata       `json:"metadata,omitempty"`
 	Request    json.RawMessage `json:"request,omitempty"`
-	Event      json.RawMessage `json:"event,omitempty"`
 }
 
 func (r *Request) ValidateWithContext(ctx context.Context) error {
@@ -19,8 +18,7 @@ func (r *Request) ValidateWithContext(ctx context.Context) error {
 		validation.Field(&r.ApiVersion, validation.Required, validation.In(ApiVersion)),
 		validation.Field(&r.Kind, validation.Required, validation.In(Kinds...)),
 		validation.Field(&r.Metadata, validation.Required),
-		validation.Field(&r.Request, validation.When(r.Event == nil, validation.Required)),
-		validation.Field(&r.Event, validation.When(r.Request == nil, validation.Required)),
+		validation.Field(&r.Request, validation.Required),
 	)
 }
 

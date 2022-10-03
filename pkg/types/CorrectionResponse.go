@@ -38,6 +38,7 @@ type CorrectionResponseBody struct {
 	Reason                      RequestStatusReason `json:"reason,omitempty"`
 	RequestID                   string              `json:"requestID,omitempty"`
 	ExpectedCompletionTimestamp int64               `json:"expectedCompletionTimestamp,omitempty"`
+	Claims                      map[string]any      `json:"claims,omitempty"`
 	//RedirectURL                 string              `json:"redirectUrl,omitempty"`
 }
 

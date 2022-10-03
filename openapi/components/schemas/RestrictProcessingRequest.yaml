@@ -25,7 +25,7 @@ properties:
     description: array of Identities
     items:
       $ref: "./Identity.yaml"
-  "callbacks":
+  callbacks:
     type: array
     description: array of Callbacks
     items:
@@ -34,10 +34,7 @@ properties:
     $ref: "./DataSubject.yaml"
     description: the Data Subject
   claims:
-    type: object
-    additionalProperties:
-      type: string
-    description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+    $ref: "./Claims.yaml"
   submittedTimestamp:
     type: number
     format: int64

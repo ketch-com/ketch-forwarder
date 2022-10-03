@@ -11,6 +11,7 @@ type Response struct {
 	Kind       Kind            `json:"kind,omitempty"`
 	Metadata   *Metadata       `json:"metadata,omitempty"`
 	Response   json.RawMessage `json:"response,omitempty"`
+	Event      json.RawMessage `json:"event,omitempty"`
 }
 
 func (r *Response) ValidateWithContext(ctx context.Context) error {
@@ -18,7 +19,8 @@ func (r *Response) ValidateWithContext(ctx context.Context) error {
 		validation.Field(&r.ApiVersion, validation.Required, validation.In(ApiVersion)),
 		validation.Field(&r.Kind, validation.Required, validation.In(Kinds...)),
 		validation.Field(&r.Metadata, validation.Required),
-		validation.Field(&r.Response, validation.Required),
+		validation.Field(&r.Response, validation.When(r.Event == nil, validation.Required)),
+		validation.Field(&r.Event, validation.When(r.Response == nil, validation.Required)),
 	)
 }
 

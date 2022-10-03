@@ -1,0 +1,2 @@
+type: object
+description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.

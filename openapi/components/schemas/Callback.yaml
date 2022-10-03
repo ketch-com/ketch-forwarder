@@ -5,6 +5,6 @@ properties:
     description: URL of the callback endpoint
   headers:
     type: object
+    description: map of headers to send to the callback endpoint
     additionalProperties:
       type: string
-    description: map of headers to send to the callback endpoint

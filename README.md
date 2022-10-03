@@ -144,7 +144,8 @@ Content-Length: 238
     "status": "in_progress",
     "reason": "other",
     "expectedCompletionTimestamp": 123,
-    "requestID": "abc123"
+    "requestID": "abc123",
+    "claims": {}
   }
 }
 ```
@@ -160,6 +161,7 @@ Content-Length: 238
 | *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                 |
 | *response.expectedCompletionTimestamp* | no        | The UNIX timestamp at which the Data Subject Request is expected to be completed |
 | *response.requestID*                   | no        | The request ID known to the destination system                                   | 
+| *response.claims*                      | no        | The response claims to provide as augmentation of the original request           |
 
 <!-- | *response.redirectUrl* | no | If the [Data Subject](#Subject) should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the [Data Subject](#Subject) to | --> 
 
@@ -203,6 +205,7 @@ Accept: application/json
 | *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                  |
 | *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed |
 | *response.requestID*                   | no        | The request ID known to the destination system                                    |
+| *response.claims*                      | no        | The response claims to provide as augmentation of the original request            |
 
 <!-- | *response.redirectUrl* | no | If the [Data Subject](#Subject) should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the [Data Subject](#Subject) to | --> 
 
@@ -325,6 +328,7 @@ Content-Type: application/json
 | *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed     |
 | *response.results*                     | no        | Array of [Callbacks](#Callback) that can be used to download the contents requested   |
 | *response.requestID*                   | no        | The request ID known to the destination system                                        |
+| *response.claims*                      | no        | The response claims to provide as augmentation of the original request                |
 
 <!-- | *response.redirectUrl* | no        | if the [Data Subject](#Subject) should be redirected to a URL (perhaps for confirmation)         | -->
 
@@ -379,6 +383,7 @@ Accept: application/json
 | *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed   |
 | *response.results*                     | no        | Array of [Callbacks](#Callback) that can be used to download the contents requested |
 | *response.requestID*                   | no        | The request ID known to the destination system                                      |
+| *response.claims*                      | no        | The response claims to provide as augmentation of the original request              |
 
 ## Restrict Processing
 
@@ -493,17 +498,18 @@ Content-Type: application/json
 
 #### Fields
 
-| name                                   | required? | description                                                                       |
-|----------------------------------------|-----------|-----------------------------------------------------------------------------------|
-| *apiVersion*                           | yes       | API version. Must be `dsr/v1`                                                     |
-| *kind*                                 | yes       | Message kind. Must be `RestrictProcessingResponse`                                |
-| *metadata*                             | yes       | [Metadata](#Metadata) object                                                      |
-| *response.status*                      | yes       | The [status](#Status) of the Data Subject Request                                 |
-| *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                  |
-| *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed |
-| *response.requestID*                   | no        | The request ID known to the destination system                                    |
+| name                                   | required? | description                                                                        |
+|----------------------------------------|-----------|------------------------------------------------------------------------------------|
+| *apiVersion*                           | yes       | API version. Must be `dsr/v1`                                                      |
+| *kind*                                 | yes       | Message kind. Must be `RestrictProcessingResponse`                                 |
+| *metadata*                             | yes       | [Metadata](#Metadata) object                                                       |
+| *response.status*                      | yes       | The [status](#Status) of the Data Subject Request                                  |
+| *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                   |
+| *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed  |
+| *response.requestID*                   | no        | The request ID known to the destination system                                     |
+| *response.claims*                      | no        | The response claims to provide as augmentation of the original request             |
 
-<!-- | *response.redirectUrl*                 | no        | If the [Data Subject](#Subject) should be redirected to a URL (perhaps for confirmation)      | -->
+<!-- | *response.redirectUrl*                 | no                                                                                 | If the [Data Subject](#Subject) should be redirected to a URL (perhaps for confirmation)      | -->
 
 ### Restrict Processing Error Response
 
@@ -547,6 +553,7 @@ Accept: application/json
 | *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                  |
 | *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed |
 | *response.requestID*                   | no        | The request ID known to the destination system                                    |
+| *response.claims*                      | no        | The response claims to provide as augmentation of the original request            |
 
 ## Correction
 
@@ -664,6 +671,7 @@ Content-Type: application/json
 | *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                  |
 | *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed |
 | *response.requestID*                   | no        | The request ID known to the destination system                                    |
+| *response.claims*                      | no        | The response claims to provide as augmentation of the original request            |
 
 <!-- | *response.redirectUrl* | no | If the [Data Subject](#Subject) should be redirected to a URL (perhaps for confirmation)     | -->
 
@@ -708,6 +716,7 @@ Accept: application/json
 | *response.reason*                      | no        | The [reason](#Reason) for the status of the Data Subject Request                  |
 | *response.expectedCompletionTimestamp* | no        | The UNIX time stamp at which the Data Subject Request is expected to be completed |
 | *response.requestID*                   | no        | The request ID known to the destination system                                    |
+| *response.claims*                      | no        | The response claims to provide as augmentation of the original request            |
 
 ## Common objects
 
@@ -753,6 +762,11 @@ Content-Length: 238
 | *error.code*      | yes       | The HTTP status code                                         |
 | *error.status*    | yes       | A string code representing the error                         |
 | *error.message*   | yes       | A user-friendly error message (e.g., `"Not found"`)          |
+
+### Claims
+
+The Claims object provides a free-form object with additional information in the request or response that does not
+fit in other standard fields.  This can be a complex object.
 
 ### Callback
 

@@ -34,18 +34,18 @@ func (r *RestrictProcessingRequest) GetMetadata() *Metadata {
 }
 
 type RestrictProcessingRequestBody struct {
-	Controller         string            `json:"controller,omitempty"`
-	Property           string            `json:"property,omitempty"`
-	Environment        string            `json:"environment,omitempty"`
-	Regulation         string            `json:"regulation,omitempty"`
-	Jurisdiction       string            `json:"jurisdiction,omitempty"`
-	Purposes           []string          `json:"purposes,omitempty"`
-	Identities         []*Identity       `json:"identities,omitempty"`
-	Callbacks          []*Callback       `json:"callbacks,omitempty"`
-	Subject            *DataSubject      `json:"subject,omitempty"`
-	Claims             map[string]string `json:"claims,omitempty"`
-	SubmittedTimestamp int64             `json:"submittedTimestamp,omitempty"`
-	DueTimestamp       int64             `json:"dueTimestamp,omitempty"`
+	Controller         string         `json:"controller,omitempty"`
+	Property           string         `json:"property,omitempty"`
+	Environment        string         `json:"environment,omitempty"`
+	Regulation         string         `json:"regulation,omitempty"`
+	Jurisdiction       string         `json:"jurisdiction,omitempty"`
+	Purposes           []string       `json:"purposes,omitempty"`
+	Identities         []*Identity    `json:"identities,omitempty"`
+	Callbacks          []*Callback    `json:"callbacks,omitempty"`
+	Subject            *DataSubject   `json:"subject,omitempty"`
+	Claims             map[string]any `json:"claims,omitempty"`
+	SubmittedTimestamp int64          `json:"submittedTimestamp,omitempty"`
+	DueTimestamp       int64          `json:"dueTimestamp,omitempty"`
 }
 
 func (r *RestrictProcessingRequestBody) ValidateWithContext(ctx context.Context) error {

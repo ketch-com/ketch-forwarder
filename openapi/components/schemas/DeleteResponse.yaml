@@ -13,6 +13,8 @@ properties:
   requestID:
     type: string
     description: the request ID known in the destination system
+  claims:
+    $ref: "./Claims.yaml"
 #  redirectUrl:
 #    type: string
 #    format: url

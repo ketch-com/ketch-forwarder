@@ -39,13 +39,14 @@ components:
     ErrorResponse:
       type: object
       properties:
-        code:
-          type: number
-          format: int
-        status:
-          type: string
-        message:
-          type: string
+        apiVersion:
+          $ref: '#/components/schemas/ApiVersion'
+        kind:
+          $ref: '#/components/schemas/ErrorKind'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        error:
+          $ref: '#/components/schemas/Error'
     AccessResponse:
       type: object
       properties:
@@ -59,10 +60,11 @@ components:
           type: number
           format: int64
           description: the UNIX time stamp at which the Data Subject Request is expected to be completed
-        redirectUrl:
+        requestID:
           type: string
-          format: url
-          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
+          description: the request ID known in the destination system
+        claims:
+          $ref: '#/components/schemas/Claims'
         results:
           type: array
           items:
@@ -80,10 +82,11 @@ components:
           type: number
           format: int64
           description: the UNIX time stamp at which the Data Subject Request is expected to be completed
-        redirectUrl:
+        requestID:
           type: string
-          format: url
-          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
+          description: the request ID known in the destination system
+        claims:
+          $ref: '#/components/schemas/Claims'
     Request:
       type: object
       description: Request
@@ -95,7 +98,7 @@ components:
         metadata:
           $ref: '#/components/schemas/Metadata'
         request:
-          $ref: '#/components/schemas/AllResponses'
+          $ref: '#/components/schemas/AllRequests'
     RestrictProcessingResponse:
       type: object
       properties:
@@ -109,21 +112,21 @@ components:
           type: number
           format: int64
           description: the UNIX time stamp at which the Data Subject Request is expected to be completed
-        redirectUrl:
+        requestID:
           type: string
-          format: url
-          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
+          description: the request ID known in the destination system
+        claims:
+          $ref: '#/components/schemas/Claims'
     Error:
       type: object
       properties:
-        apiVersion:
-          $ref: '#/components/schemas/ApiVersion'
-        kind:
-          $ref: '#/components/schemas/ErrorKind'
-        metadata:
-          $ref: '#/components/schemas/Metadata'
-        error:
-          $ref: '#/components/schemas/ErrorResponse'
+        code:
+          type: number
+          format: int
+        status:
+          type: string
+        message:
+          type: string
     ErrorKind:
       type: string
       enum:
@@ -136,9 +139,9 @@ components:
           description: URL of the callback endpoint
         headers:
           type: object
+          description: map of headers to send to the callback endpoint
           additionalProperties:
             type: string
-          description: map of headers to send to the callback endpoint
     AllEvents:
       $oneOf:
         - $ref: '#/components/schemas/AccessResponse'
@@ -200,10 +203,7 @@ components:
           $ref: '#/components/schemas/DataSubject'
           description: the Data Subject
         claims:
-          type: object
-          additionalProperties:
-            type: string
-          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+          $ref: '#/components/schemas/Claims'
         submittedTimestamp:
           type: number
           format: int64
@@ -214,6 +214,7 @@ components:
           description: UNIX timestamp in seconds
     DataSubject:
       type: object
+      additionalProperties: true
       properties:
         email:
           type: string
@@ -300,10 +301,7 @@ components:
           $ref: '#/components/schemas/DataSubject'
           description: the Data Subject
         claims:
-          type: object
-          additionalProperties:
-            type: string
-          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+          $ref: '#/components/schemas/Claims'
         submittedTimestamp:
           type: number
           format: int64
@@ -345,10 +343,7 @@ components:
           $ref: '#/components/schemas/DataSubject'
           description: the Data Subject
         claims:
-          type: object
-          additionalProperties:
-            type: string
-          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+          $ref: '#/components/schemas/Claims'
         submittedTimestamp:
           type: number
           format: int64
@@ -396,10 +391,7 @@ components:
           $ref: '#/components/schemas/DataSubject'
           description: the Data Subject
         claims:
-          type: object
-          additionalProperties:
-            type: string
-          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+          $ref: '#/components/schemas/Claims'
         submittedTimestamp:
           type: number
           format: int64
@@ -421,10 +413,11 @@ components:
           type: number
           format: int64
           description: the UNIX time stamp at which the Data Subject Request is expected to be completed
-        redirectUrl:
+        requestID:
           type: string
-          format: url
-          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
+          description: the request ID known in the destination system
+        claims:
+          $ref: '#/components/schemas/Claims'
     ResponseKind:
       type: string
       enum:
@@ -436,14 +429,14 @@ components:
       type: string
       enum:
         - unknown
-        - need_user_verification
         - suspected_fraud
         - insufficient_verification
         - no_match
         - claim_not_covered
         - outside_jurisdiction
         - too_many_requests
-        - other
+        - requested
+        - executed
     Identity:
       type: object
       properties:
@@ -453,9 +446,13 @@ components:
         identityFormat:
           type: string
           description: 'format of the identity value (`raw`, `md5`, `sha1`)'
+          default: raw
         identityValue:
           type: string
           description: value of the identity
+    Claims:
+      type: object
+      description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
     DSRRequestStatus:
       type: string
       enum:
