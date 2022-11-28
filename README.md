@@ -850,20 +850,22 @@ some time.
 | *in_progress* | the request is in progress      |
 | *completed*   | the request has been completed  | 
 | *cancelled*   | the request has been cancelled  |
-| *denied*      |  the request has been denied    |
+| *denied*      | the request has been denied     |
 
 #### Reason
 
-| status    | reason                      | description                                                                     |
-|-----------|-----------------------------|---------------------------------------------------------------------------------|
-| any       | *unknown* (default)         | the reason for the status is unknown/other                                      |
-| completed | *executed*                  | the request has been executed                                                   |
-| completed | *requested*                 | the request has been forwarded for execution                                    |
-| denied    | *suspected_fraud*           | the request is suspected fraud                                                  |
-| denied    | *insufficient_verification* | the [Data Subject](#Subject) has insufficiently completed identity verification |
-| denied    | *no_match*                  | there is no match for the [Data Subject](#Subject)                              |
-| denied    | *claim_not_covered*         | the claim is not covered                                                        |
-| denied    | *outside_jurisdiction*      | the [Data Subject](#Subject) is outside the covered jurisdiction                |
-| denied    | *too_many_requests*         | the [Data Subject](#Subject) has made too many requests                         |
-
-<!-- | *need_user_verification*    | the status is pending because the [Data Subject](#Subject) needs to complete identity verification           | -->
+| status    | reason                        | description                                                                                        |
+|-----------|-------------------------------|----------------------------------------------------------------------------------------------------|
+| any       | *unknown* (default)           | the reason for the status is unknown/other                                                         |
+| pending   | *need_user_verification*      | the status is pending because the [Data Subject](#Subject) needs to complete identity verification |
+| completed | *requested*                   | the request has been forwarded for execution                                                       |
+| completed | *no_match*                    | the request was completed, but there is no match for the [Data Subject](#Subject)                  |
+| completed | *insufficient_identification* | the [Data Subject](#Subject) was not sufficiently identified                                       |
+| completed | *executed*                    | the request has been executed                                                                      |
+| denied    | *no_match*                    | there is no match for the [Data Subject](#Subject)                                                 |
+| denied    | *insufficient_identification* | the [Data Subject](#Subject) was not sufficiently identified                                       |
+| denied    | *insufficient_verification*   | the [Data Subject](#Subject) has insufficiently completed identity verification                    |
+| denied    | *claim_not_covered*           | the claim is not covered                                                                           |
+| denied    | *outside_jurisdiction*        | the [Data Subject](#Subject) is outside the covered jurisdiction                                   |
+| denied    | *too_many_requests*           | the [Data Subject](#Subject) has made too many requests                                            |
+| denied    | *suspected_fraud*             | the request is suspected fraud                                                                     |
