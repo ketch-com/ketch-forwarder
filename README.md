@@ -59,7 +59,7 @@ Authorization: Bearer $auth
   "apiVersion": "dsr/v1",
   "kind": "DeleteRequest",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "request": {
@@ -137,7 +137,7 @@ Content-Length: 238
   "apiVersion": "dsr/v1",
   "kind": "DeleteResponse",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "response": {
@@ -182,7 +182,7 @@ Accept: application/json
   "apiVersion": "dsr/v1",
   "kind": "DeleteStatusEvent",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "event": {
@@ -225,7 +225,7 @@ Authorization: Bearer $auth
   "apiVersion": "dsr/v1",
   "kind": "AccessRequest",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "request": {
@@ -302,7 +302,7 @@ Content-Type: application/json
   "apiVersion": "dsr/v1",
   "kind": "AccessResponse",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "response": {
@@ -349,7 +349,7 @@ Accept: application/json
   "apiVersion": "dsr/v1",
   "kind": "AccessStatusEvent",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "event": {
@@ -398,7 +398,7 @@ Authorization: Bearer $auth
   "apiVersion": "dsr/v1",
   "kind": "RestrictProcessingRequest",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "request": {
@@ -481,7 +481,7 @@ Content-Type: application/json
   "apiVersion": "dsr/v1",
   "kind": "RestrictProcessingResponse",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "response": {
@@ -526,7 +526,7 @@ Accept: application/json
   "apiVersion": "dsr/v1",
   "kind": "RestrictProcessingStatusEvent",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "event": {
@@ -566,7 +566,7 @@ Authorization: Bearer $auth
   "apiVersion": "dsr/v1",
   "kind": "CorrectionRequest",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "request": {
@@ -643,7 +643,7 @@ Content-Type: application/json
   "apiVersion": "dsr/v1",
   "kind": "CorrectionResponse",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "response": {
@@ -687,7 +687,7 @@ Accept: application/json
   "apiVersion": "dsr/v1",
   "kind": "CorrectionStatusEvent",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "event": {
@@ -713,10 +713,10 @@ Accept: application/json
 
 ### Metadata
 
-| name     | required? | description                                                  |
-|----------|-----------|--------------------------------------------------------------|
-| *uid*    | yes       | Will be a unique UUIDv4, and uniquely identifies the request |
-| *tenant* | yes       | Will be the Ketch tenant code where the request originated   |
+| name     | required? | description                                                |
+|----------|-----------|------------------------------------------------------------|
+| *uid*    | yes       | Will be a requestID, and uniquely identifies the request   |
+| *tenant* | yes       | Will be the Ketch tenant code where the request originated |
 
 ### Error
 
@@ -732,7 +732,7 @@ Content-Length: 238
   "apiVersion": "dsr/v1",
   "kind": "Error",
   "metadata": {
-    "uid": "22880925-aac5-42f9-a653-cb6921d361ff",
+    "uid": "2ntPAIO3dqfV7dNO37UpeE",
     "tenant": "axonic"
   },
   "error": {
