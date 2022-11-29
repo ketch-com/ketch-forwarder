@@ -713,10 +713,10 @@ Accept: application/json
 
 ### Metadata
 
-| name     | required? | description                                                |
-|----------|-----------|------------------------------------------------------------|
-| *uid*    | yes       | Will be a requestID, and uniquely identifies the request   |
-| *tenant* | yes       | Will be the Ketch tenant code where the request originated |
+| name     | required? | description                                                                                               |
+|----------|-----------|-----------------------------------------------------------------------------------------------------------|
+| *uid*    | yes       | Will be a requestID that matches the request_id in ketch Rights Queue and uniquely identifies the request |
+| *tenant* | yes       | Will be the Ketch tenant code where the request originated                                                |
 
 ### Error
 
