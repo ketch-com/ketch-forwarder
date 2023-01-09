@@ -9,7 +9,8 @@
 
 ## Response Status
 
-Each response can have a [status](Status.md) that communicates to the Ketch platform how to handle the activity.
+Each response can have a [status](Status.md) that communicates to the Ketch platform how to handle the activity. The
+status is case-sensitive.
 
 ## Common objects
 
@@ -22,7 +23,7 @@ The protocol for communicating with the Callback is defined for every object tha
 {
   "url": "https://dsr.ketch.com/callback",
   "headers": {
-    "Authorization": "Bearer $auth"
+    "Authorization": "$auth"
   }
 }
 ```
@@ -47,7 +48,7 @@ the document using a simple HTTP GET.
 {
   "url": "https://dsr.controller.com/get/my/document",
   "headers": {
-    "Authorization": "Bearer $auth"
+    "Authorization": "$auth"
   }
 }
 ```
@@ -69,7 +70,12 @@ The Document object can provide the data directly in the value.
 
 Here, the document is returned directly in the response/event using base64-encoded data. The
 `Content-Type` header is required so Ketch knows the [mime type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
-of data received. The only supported content type is `application/json`. The total response data across all callbacks is
+of data received. The only supported content type is `application/json`.
+
+#### JSON Data
+
+JSON document data is combined across all callback requests for a given DSR request using merge patches as defined 
+in [RFC7396](https://www.rfc-editor.org/rfc/rfc7396). The total response data across all callbacks is
 limited to 1MB.
 
 #### Fields
