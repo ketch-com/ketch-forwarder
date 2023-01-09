@@ -23,28 +23,27 @@ For the examples, the endpoint is configured as follows (note this URL does not 
 
 * URL: `https://example.com/endpoint`
 * Header Key: `Authorization`
-* Header Value: `Bearer $auth`
+* Header Value: `$auth`
 
 For the examples, a callback could be configured as follows (note this URL does not really exist):
 
 * URL: `https://dsr.ketch.com/callback`
 * Header Key: `Authorization`
-* Header Value: `Bearer $auth`
+* Header Value: `$auth`
 
 For the examples, a result could be configured as follows (note this URL does not really exist):
 
 * URL: `https://example.com/results`
 * Header Key: `Authorization`
-* Header Value: `Bearer $auth`
+* Header Value: `$auth`
 
 ## Data Subject Requests
 
-* [Access](dsr/v1/Access.md)
-* [Correction](dsr/v1/Correction.md)
-* [Delete](dsr/v1/Delete.md)
-* [Restrict Processing](dsr/v1/RestrictProcessing.md)
-* [Augment](dsr/v1/Augment.md)
+* [Access](api/dsr/v1/Access.md)
+* [Correction](api/dsr/v1/Correction.md)
+* [Delete](api/dsr/v1/Delete.md)
+* [Restrict Processing](api/dsr/v1/RestrictProcessing.md)
 
 ## Consent
 
-* [Update Consent](consent/v1/UpdateConsent.md)
+* [Update Consent](api/consent/v1/UpdateConsent.md)

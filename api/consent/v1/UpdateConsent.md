@@ -9,7 +9,7 @@ POST /endpoint HTTP/1.1
 Host: www.example.com
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer $auth
+Authorization: $auth
 
 {
   "apiVersion": "consent/v1",

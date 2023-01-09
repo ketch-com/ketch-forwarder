@@ -10,7 +10,7 @@ POST /endpoint HTTP/1.1
 Host: www.example.com
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer $auth
+Authorization: $auth
 
 {
   "apiVersion": "dsr/v1",
@@ -41,7 +41,7 @@ Authorization: Bearer $auth
       {
         "url": "https://dsr.ketch.com/callback",
         "headers": {
-          "Authorization": "Bearer $auth"
+          "Authorization": "$auth"
         }
       }
     ],
@@ -148,7 +148,7 @@ POST /callback HTTP/1.1
 Host: dsr.ketch.com
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer $auth
+Authorization: $auth
 
 {
   "apiVersion": "dsr/v1",

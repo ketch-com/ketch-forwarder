@@ -22,6 +22,8 @@ some time.
 | *cancelled*   | the request has been cancelled  |
 | *denied*      | the request has been denied     |
 
+The status code is case sensitve.
+
 ## Reason
 
 | status    | reason                        | description                                                                                                 |
