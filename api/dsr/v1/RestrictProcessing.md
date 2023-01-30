@@ -57,7 +57,7 @@ Authorization: $auth
       "countryCode": "US",
       "description": "Restrict my data"
     },
-    "claims": {
+    "context": {
       "account_id": "123"
     },
     "submittedTimestamp": 123,
@@ -82,7 +82,7 @@ Authorization: $auth
 | *request.identities*         | yes       | Array of [Identities](README.md#Identity)                                                                           |
 | *request.callbacks*          | no        | Array of [Callbacks](README.md#Callback)                                                                            |
 | *request.subject*            | yes       | The [Data Subject](README.md#Subject)                                                                               |
-| *request.claims*             | no        | Map containing additional claims that have been added via identity verification or other augmentation methods       |
+| *request.context*            | no        | Map containing additional context that have been added via identity verification or other augmentation methods      |
 | *request.submittedTimestamp* | yes       | UNIX timestamp in seconds                                                                                           |
 | *request.dueTimestamp*       | yes       | UNIX timestamp in seconds                                                                                           |
 
@@ -132,7 +132,7 @@ Content-Type: application/json
       "postalCode": "10123",
       "countryCode": "US"
     },
-    "claims": {
+    "context": {
       "contextVariable1": "foo",
       "contextVariable2": 1,
       "contextVariable4": true
@@ -176,7 +176,7 @@ Authorization: $auth
       "postalCode": "10123",
       "countryCode": "US"
     },
-    "claims": {
+    "context": {
       "contextVariable1": "foo",
       "contextVariable2": 1,
       "contextVariable4": true
@@ -195,7 +195,7 @@ Authorization: $auth
 | *requestID*                   | no        | The request ID known to the destination system                                                    |
 | *results*                     | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |
 | *documents*                   | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |
-| *claims*                      | no        | Map containing additions or changes to claims.                                                    |
+| *context*                     | no        | Map containing additions or changes to context.                                                   |
 | *redirectUrl*                 | no        | if the [Data Subject](README.md#Subject) should be redirected to a URL (perhaps for confirmation) |
 | *subject*                     | no        | Map containing additions or changes to subject values [Data Subject](README.md#Subject).          |
 | *identities*                  | no        | Array of [Identities](README.md#Identity) to add to the request                                   |

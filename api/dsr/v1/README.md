@@ -156,7 +156,7 @@ messages to the request conversation.
 
 ### Add context variables
 
-To add or update context variables, return the `claims` property. Claims is a map from the context variable 
+To add or update context variables, return the `context` property. Context is a map from the context variable 
 code (string) to the value (string, integer or boolean).
 
 ### Update data subject

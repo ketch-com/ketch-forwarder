@@ -56,7 +56,7 @@ Authorization: $auth
       "countryCode": "US",
       "description": "Delete my data"
     },
-    "claims": {
+    "context": {
       "account_id": "123"
     },
     "submittedTimestamp": 123,
@@ -67,22 +67,22 @@ Authorization: $auth
 
 ### Fields
 
-| name                         | required? | description                                                                                                                                                                            |
-|------------------------------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| *apiVersion*                 | yes       | API version. Must be `dsr/v1`                                                                                                                                                          |
-| *kind*                       | yes       | Must be `DeleteRequest`                                                                                                                                                                |
-| *metadata*                   | yes       | [Metadata](../../runtime/v1/Metadata.md) object                                                                                                                                        |
-| *request.controller*         | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`                                                                    |
-| *request.property*           | yes       | Code of the digital property defined in Ketch                                                                                                                                          |
-| *request.environment*        | yes       | Code environment defined in Ketch                                                                                                                                                      |
-| *request.regulation*         | yes       | Code of the regulation defined in Ketch                                                                                                                                                |
-| *request.jurisdiction*       | yes       | Code of the jurisdiction defined in Ketch                                                                                                                                              |
-| *request.identities*         | yes       | Array of [Identities](README.md#Identity)                                                                                                                                              |
-| *request.callbacks*          | no        | Array of [Callbacks](README.md#Callback)                                                                                                                                               |
-| *request.subject*            | yes       | The [Data Subject](README.md#Subject)                                                                                                                                                  |
-| *request.claims*             | no        | Map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities` |
-| *request.submittedTimestamp* | yes       | UNIX timestamp in seconds when the request was submitted.                                                                                                                              |
-| *request.dueTimestamp*       | yes       | UNIX timestamp in seconds when the request must be completed by.                                                                                                                       |
+| name                         | required? | description                                                                                                                                                                              |
+|------------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| *apiVersion*                 | yes       | API version. Must be `dsr/v1`                                                                                                                                                            |
+| *kind*                       | yes       | Must be `DeleteRequest`                                                                                                                                                                  |
+| *metadata*                   | yes       | [Metadata](../../runtime/v1/Metadata.md) object                                                                                                                                          |
+| *request.controller*         | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`                                                                      |
+| *request.property*           | yes       | Code of the digital property defined in Ketch                                                                                                                                            |
+| *request.environment*        | yes       | Code environment defined in Ketch                                                                                                                                                        |
+| *request.regulation*         | yes       | Code of the regulation defined in Ketch                                                                                                                                                  |
+| *request.jurisdiction*       | yes       | Code of the jurisdiction defined in Ketch                                                                                                                                                |
+| *request.identities*         | yes       | Array of [Identities](README.md#Identity)                                                                                                                                                |
+| *request.callbacks*          | no        | Array of [Callbacks](README.md#Callback)                                                                                                                                                 |
+| *request.subject*            | yes       | The [Data Subject](README.md#Subject)                                                                                                                                                    |
+| *request.context*            | no        | Map containing additional non-identity context that have been added via identity verification or other augmentation methods. Identity context should be included in `request.identities` |
+| *request.submittedTimestamp* | yes       | UNIX timestamp in seconds when the request was submitted.                                                                                                                                |
+| *request.dueTimestamp*       | yes       | UNIX timestamp in seconds when the request must be completed by.                                                                                                                         |
 
 ## Delete Response / Status Event
 
@@ -133,7 +133,7 @@ Content-Length: 238
       "postalCode": "10123",
       "countryCode": "US"
     },
-    "claims": {
+    "context": {
       "contextVariable1": "foo",
       "contextVariable2": 1,
       "contextVariable4": true
@@ -179,7 +179,7 @@ Authorization: $auth
       "postalCode": "10123",
       "countryCode": "US"
     },
-    "claims": {
+    "context": {
       "contextVariable1": "foo",
       "contextVariable2": 1,
       "contextVariable4": true
@@ -198,7 +198,7 @@ Authorization: $auth
 | *requestID*                   | no        | The request ID known to the destination system                                                    | 
 | *results*                     | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |
 | *documents*                   | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |
-| *claims*                      | no        | Map containing additions or changes to claims.                                                    |
+| *context*                     | no        | Map containing additions or changes to context.                                                   |
 | *redirectUrl*                 | no        | if the [Data Subject](README.md#Subject) should be redirected to a URL (perhaps for confirmation) |
 | *subject*                     | no        | Map containing additions or changes to subject values [Data Subject](README.md#Subject).          |
 | *identities*                  | no        | Array of [Identities](README.md#Identity) to add to the request                                   |

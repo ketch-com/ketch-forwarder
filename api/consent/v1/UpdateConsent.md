@@ -44,7 +44,7 @@ Authorization: $auth
     "vendors": [
       "79",
     ],
-    "claims": {
+    "context": {
       "account_id": "123"
     },
     "collectedAt": 12345984398
@@ -54,21 +54,21 @@ Authorization: $auth
 
 ### Fields
 
-| name                         | required? | description                                                                                                         |
-|------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
-| *apiVersion*                 | yes       | API version. Must be `dsr/v1`                                                                                       |
-| *kind*                       | yes       | Message kind. Must be `CorrectionRequest`                                                                           |
-| *metadata*                   | yes       | [Metadata](../../runtime/v1/Metadata.md) object                                                                     |
-| *request.controller*         | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant` |
-| *request.property*           | yes       | Code of the digital property defined in Ketch                                                                       |
-| *request.environment*        | yes       | Code environment defined in Ketch                                                                                   |
-| *request.regulation*         | yes       | Code of the regulation defined in Ketch                                                                             |
-| *request.jurisdiction*       | yes       | Code of the jurisdiction defined in Ketch                                                                           |
-| *request.identities*         | yes       | Array of [Identities](../../dsr/v1/README.md#Identity)                                                              |
-| *request.purposes*           | yes       | Map of booleans. The key is the purpose code and the value is true if allowed                                       |
-| *request.legalBasis*         | yes       | Map of legal basis codes for the purposes.                                                                          |
-| *request.claims*             | no        | Map containing additional claims that have been added via identity verification or other augmentation methods       |
-| *request.collectedAt*        | yes       | UNIX Timestamp of when the consent was collected                                                                    |
+| name                   | required? | description                                                                                                         |
+|------------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
+| *apiVersion*           | yes       | API version. Must be `dsr/v1`                                                                                       |
+| *kind*                 | yes       | Message kind. Must be `CorrectionRequest`                                                                           |
+| *metadata*             | yes       | [Metadata](../../runtime/v1/Metadata.md) object                                                                     |
+| *request.controller*   | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant` |
+| *request.property*     | yes       | Code of the digital property defined in Ketch                                                                       |
+| *request.environment*  | yes       | Code environment defined in Ketch                                                                                   |
+| *request.regulation*   | yes       | Code of the regulation defined in Ketch                                                                             |
+| *request.jurisdiction* | yes       | Code of the jurisdiction defined in Ketch                                                                           |
+| *request.identities*   | yes       | Array of [Identities](../../dsr/v1/README.md#Identity)                                                              |
+| *request.purposes*     | yes       | Map of booleans. The key is the purpose code and the value is true if allowed                                       |
+| *request.legalBasis*   | yes       | Map of legal basis codes for the purposes.                                                                          |
+| *request.context*      | no        | Map containing additional context that have been added via identity verification or other augmentation methods      |
+| *request.collectedAt*  | yes       | UNIX Timestamp of when the consent was collected                                                                    |
 
 ## Consent Response
 
