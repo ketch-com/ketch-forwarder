@@ -109,7 +109,8 @@ The Identity object describes the identity of a [Data Subject](#Subject).
 ### Subject
 
 The Subject object describes the Data Subject making the request. The fields type, email, city, and description are 
-read only. Any empty subject values will be ignored when patching the subject.
+read only. Any empty subject values will be ignored when patching the subject. Additional properties may exist
+in this object depending on the subject type.
 
 ```json
 {
