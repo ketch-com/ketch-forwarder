@@ -59,10 +59,9 @@ components:
           type: number
           format: int64
           description: the UNIX time stamp at which the Data Subject Request is expected to be completed
-        redirectUrl:
+        requestID:
           type: string
-          format: url
-          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
+          description: the request ID known in the destination system
         results:
           type: array
           items:
@@ -80,10 +79,9 @@ components:
           type: number
           format: int64
           description: the UNIX time stamp at which the Data Subject Request is expected to be completed
-        redirectUrl:
+        requestID:
           type: string
-          format: url
-          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
+          description: the request ID known in the destination system
     Request:
       type: object
       description: Request
@@ -109,10 +107,9 @@ components:
           type: number
           format: int64
           description: the UNIX time stamp at which the Data Subject Request is expected to be completed
-        redirectUrl:
+        requestID:
           type: string
-          format: url
-          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
+          description: the request ID known in the destination system
     Error:
       type: object
       properties:
@@ -199,11 +196,11 @@ components:
         subject:
           $ref: '#/components/schemas/DataSubject'
           description: the Data Subject
-        claims:
+        context:
           type: object
           additionalProperties:
             type: string
-          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+          description: map containing additional non-identity context that have been added via identity verification or other augmentation methods. Identity context should be included in `request.identities`.
         submittedTimestamp:
           type: number
           format: int64
@@ -245,6 +242,8 @@ components:
         description:
           type: string
           description: free-text description provided by the Data Subject
+      additionalProperties:
+        type: string
     Event:
       type: object
       properties:
@@ -299,11 +298,11 @@ components:
         subject:
           $ref: '#/components/schemas/DataSubject'
           description: the Data Subject
-        claims:
+        context:
           type: object
           additionalProperties:
             type: string
-          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+          description: map containing additional non-identity context that have been added via identity verification or other augmentation methods. Identity context should be included in `request.identities`.
         submittedTimestamp:
           type: number
           format: int64
@@ -344,11 +343,11 @@ components:
         subject:
           $ref: '#/components/schemas/DataSubject'
           description: the Data Subject
-        claims:
+        context:
           type: object
           additionalProperties:
             type: string
-          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+          description: map containing additional non-identity context that have been added via identity verification or other augmentation methods. Identity context should be included in `request.identities`.
         submittedTimestamp:
           type: number
           format: int64
@@ -395,11 +394,11 @@ components:
         subject:
           $ref: '#/components/schemas/DataSubject'
           description: the Data Subject
-        claims:
+        context:
           type: object
           additionalProperties:
             type: string
-          description: map containing additional non-identity claims that have been added via identity verification or other augmentation methods. Identity claims should be included in `request.identities`.
+          description: map containing additional non-identity context that have been added via identity verification or other augmentation methods. Identity context should be included in `request.identities`.
         submittedTimestamp:
           type: number
           format: int64
@@ -421,10 +420,9 @@ components:
           type: number
           format: int64
           description: the UNIX time stamp at which the Data Subject Request is expected to be completed
-        redirectUrl:
+        requestID:
           type: string
-          format: url
-          description: 'if the Data Subject should be redirected to a URL (perhaps for confirmation), this field specifies the URL to redirect the Data Subject to'
+          description: the request ID known in the destination system
     ResponseKind:
       type: string
       enum:
@@ -436,7 +434,6 @@ components:
       type: string
       enum:
         - unknown
-        - need_user_verification
         - suspected_fraud
         - insufficient_verification
         - no_match
@@ -453,6 +450,7 @@ components:
         identityFormat:
           type: string
           description: 'format of the identity value (`raw`, `md5`, `sha1`)'
+          default: raw
         identityValue:
           type: string
           description: value of the identity

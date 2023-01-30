@@ -109,7 +109,8 @@ The Identity object describes the identity of a [Data Subject](#Subject).
 ### Subject
 
 The Subject object describes the Data Subject making the request. The fields type, email, city, and description are 
-read only. Any empty subject values will be ignored when patching the subject.
+read only. Any empty subject values will be ignored when patching the subject. Additional properties may exist
+in this object depending on the subject type.
 
 ```json
 {
@@ -156,7 +157,7 @@ messages to the request conversation.
 
 ### Add context variables
 
-To add or update context variables, return the `claims` property. Claims is a map from the context variable 
+To add or update context variables, return the `context` property. Context is a map from the context variable 
 code (string) to the value (string, integer or boolean).
 
 ### Update data subject

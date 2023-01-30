@@ -30,3 +30,5 @@ properties:
   description:
     type: string
     description: free-text description provided by the Data Subject
+additionalProperties:
+  type: string
