@@ -88,7 +88,7 @@ Authorization: $auth
 
 A successful response MUST include the `200 OK` response status code and a `DeleteResponse` JSON object.
 
-The `event.results` and `events.documents` are merged with any cached results from previous events. New documents are
+The `results` and `documents` are merged with any cached results from previous events. New documents are
 added and existing documents are updated.
 
 When the status of Delete Request has changed, a `DeleteStatusEvent` event should be sent to all the callbacks specified
@@ -117,7 +117,7 @@ Content-Length: 238
     "reason": "other",
     "expectedCompletionTimestamp": 123,
     "requestID": "abc123"
-    "identites": [
+    "identities": [
       {
         "identitySpace": "account_id",
         "identityFormat": "raw",
@@ -163,7 +163,7 @@ Authorization: $auth
     "reason": "other",
     "expectedCompletionTimestamp": 123,
     "requestID": "abc123"
-    "identites": [
+    "identities": [
       {
         "identitySpace": "account_id",
         "identityFormat": "raw",

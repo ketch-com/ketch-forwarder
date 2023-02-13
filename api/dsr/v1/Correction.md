@@ -84,7 +84,7 @@ Authorization: $auth
 
 A successful response MUST include the `200 OK` response status code and a `CorrectionResponse` JSON object.
 
-The `event.results` and `events.documents` are merged with any cached results from previous events. New documents are
+The `results` and `documents` are merged with any cached results from previous events. New documents are
 added and existing documents are updated.
 
 When the status of Correction Request has changed, a `CorrectionStatusEvent` JSON object should be sent to all the
@@ -109,7 +109,7 @@ Content-Type: application/json
   "response": {
     "status": "in_progress",
     "expectedCompletionTimestamp": 123
-    "identites": [
+    "identities": [
       {
         "identitySpace": "account_id",
         "identityFormat": "raw",
@@ -153,7 +153,7 @@ Authorization: $auth
   "event": {
     "status": "pending",
     "expectedCompletionTimestamp": 123,
-    "identites": [
+    "identities": [
       {
         "identitySpace": "account_id",
         "identityFormat": "raw",

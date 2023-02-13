@@ -93,7 +93,7 @@ A successful response MUST include the `200 OK` response status code and a `Rest
 When the status of Restrict Processing Request has changed, a `RestrictProcessingStatusEvent` event JSON object should
 be sent to all the callbacks specified in the request.
 
-The `event.results` and `events.documents` are merged with any cached results from previous events. New documents are 
+The `results` and `documents` are merged with any cached results from previous events. New documents are 
 added and existing documents are updated.
 
 Once the status is set to `completed`, `cancelled` or `denied`, then no further events will be accepted.
@@ -116,7 +116,7 @@ Content-Type: application/json
   "response": {
     "status": "pending",
     "expectedCompletionTimestamp": 123
-    "identites": [
+    "identities": [
       {
         "identitySpace": "account_id",
         "identityFormat": "raw",
@@ -160,7 +160,7 @@ Authorization: $auth
   "event": {
     "status": "pending",
     "expectedCompletionTimestamp": 123,
-    "identites": [
+    "identities": [
       {
         "identitySpace": "account_id",
         "identityFormat": "raw",
