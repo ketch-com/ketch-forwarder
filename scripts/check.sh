@@ -39,18 +39,6 @@ brew_install() {
   check_installed $1 "$brew install ${2:-$1}"
 }
 
-go_installed() {
-  brew_install go
-  go=$installed
-}
-
-go_install() {
-  go_installed
-  go get $1
-  go install $1
-  installed="go run $1"
-}
-
 node_installed() {
   if [ -f "/usr/local/opt/nvm/nvm.sh" ]; then
     . /usr/local/opt/nvm/nvm.sh
@@ -102,69 +90,14 @@ npm_install() {
   check_installed "$1" "$npm install --location=global ${2:-$1}"
 }
 
-github_installed() {
-  brew_install gh
-  github="$installed"
-}
-
-git_installed() {
-  brew_install git
-  git="$installed"
-}
-
-docker_installed() {
-  brew_install docker "homebrew/cask/docker"
-  docker="$installed"
-}
-
 yq_installed() {
   brew_install yq
   yq="$installed"
 }
 
-jq_installed() {
-  brew_install jq
-  jq="$installed"
-}
-
-ncu_installed() {
-  npm_install ncu npm-check-updates
-  ncu="$installed"
-}
-
 swagger_cli_installed() {
   npm_install swagger-cli "@apidevtools/swagger-cli"
   swagger_cli="$installed"
-}
-
-protoc_installed() {
-  brew_install protoc protobuf
-  protoc="$installed"
-}
-
-protoc_gen_go_installed() {
-  go_install "google.golang.org/protobuf/cmd/protoc-gen-go"
-  protoc_gen_go="$installed"
-}
-
-protoc_gen_go_grpc_installed() {
-  go_install "google.golang.org/grpc/cmd/protoc-gen-go-grpc"
-  protoc_gen_go_grpc="$installed"
-}
-
-protoc_gen_nats_installed() {
-  go_install "go.ketch.com/tool/proto-nats/cmd/protoc-gen-nats"
-  protoc_gen_nats="$installed"
-}
-
-shipbuilder_installed() {
-  go_installed
-  shipbuilder="$go run go.ketch.com/tool/shipbuilder/cmd/shipbuilder"
-}
-
-mockery_installed() {
-  go_installed
-  mockery="$go run github.com/vektra/mockery/v2"
 }
 
 check() {

@@ -6,12 +6,8 @@ if [ ! -f "./scripts/check.sh" ]; then
   cd $(command dirname -- "$(command readlink -f "$(command -v -- "$0")")")/..
 fi
 
-if [ -f "./features/shipbuilder/.env" ]; then
-  . ./features/shipbuilder/.env
-fi
-
 if [ -z "$*" ]; then
-  what="$shipbuilder_generate"
+  what="gateway"
 else
   what="$*"
 fi
