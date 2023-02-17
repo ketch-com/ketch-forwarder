@@ -29,7 +29,7 @@ Authorization: $auth
         "identityValue": "123"
       }
     ],
-    "controls": {
+    "topics": {
       "global_subscription": "denied"
     },
     "submittedTimestamp": 123
@@ -48,7 +48,7 @@ Authorization: $auth
 | *request.property*           | yes       | Code of the digital property defined in Ketch                                                                       |
 | *request.environment*        | yes       | Code environment defined in Ketch                                                                                   |
 | *request.identities*         | yes       | Array of [Identities](README.md#Identity)                                                                           |
-| *request.controls*           | yes       | Map of subscription control codes mapped to [SubscriptionStatus](README.md#SubscriptionStatus) enum.                |
+| *request.topics*             | yes       | Map of subscription topics codes mapped to [SubscriptionStatus](README.md#SubscriptionStatus) enum.                 |
 | *request.submittedTimestamp* | yes       | UNIX timestamp in seconds                                                                                           |
 
 ## Consent Response
