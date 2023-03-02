@@ -57,7 +57,7 @@ Authorization: $auth
 | name                   | required? | description                                                                                                         |
 |------------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
 | *apiVersion*           | yes       | API version. Must be `dsr/v1`                                                                                       |
-| *kind*                 | yes       | Message kind. Must be `CorrectionRequest`                                                                           |
+| *kind*                 | yes       | Message kind. Must be `ConsentRequest`                                                                              |
 | *metadata*             | yes       | [Metadata](../../runtime/v1/Metadata.md) object                                                                     |
 | *request.controller*   | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant` |
 | *request.property*     | yes       | Code of the digital property defined in Ketch                                                                       |
