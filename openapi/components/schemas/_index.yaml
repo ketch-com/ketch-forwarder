@@ -32,6 +32,8 @@ EventKind:
   $ref: "./EventKind.yaml"
 RestrictProcessingRequest:
   $ref: "./RestrictProcessingRequest.yaml"
+SubscriptionControlResponse:
+  $ref: "./SubscriptionControlResponse.yaml"
 AccessRequest:
   $ref: "./AccessRequest.yaml"
 AllResponses:
@@ -46,9 +48,17 @@ DSRRequestStatusReason:
   $ref: "./DSRRequestStatusReason.yaml"
 Identity:
   $ref: "./Identity.yaml"
+SubscriptionTopicResponse:
+  $ref: "./SubscriptionTopicResponse.yaml"
+SubscriptionTopicRequest:
+  $ref: "./SubscriptionTopicRequest.yaml"
 DSRRequestStatus:
   $ref: "./DSRRequestStatus.yaml"
+SubscriptionStatus:
+  $ref: "./SubscriptionStatus.yaml"
 Response:
   $ref: "./Response.yaml"
+SubscriptionControlRequest:
+  $ref: "./SubscriptionControlRequest.yaml"
 ApiVersion:
   $ref: "./ApiVersion.yaml"

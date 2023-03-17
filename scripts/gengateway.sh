@@ -9,9 +9,7 @@ fi
 . ./scripts/check.sh
 
 if [ -d openapi ]; then
-  check go jq yq swagger_cli shipbuilder
-
-  export module=$($go mod edit -json | $jq -r .Module.Path)
+  check yq swagger_cli
 
   set -e
 

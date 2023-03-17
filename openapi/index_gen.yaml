@@ -311,6 +311,8 @@ components:
           type: number
           format: int64
           description: UNIX timestamp in seconds
+    SubscriptionControlResponse:
+      type: object
     AccessRequest:
       type: object
       description: Access request
@@ -454,6 +456,34 @@ components:
         identityValue:
           type: string
           description: value of the identity
+    SubscriptionTopicResponse:
+      type: object
+    SubscriptionTopicRequest:
+      type: object
+      description: SubscriptionTopic request
+      properties:
+        controller:
+          type: string
+          description: code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
+        property:
+          type: string
+          description: code of the digital property defined in Ketch
+        environment:
+          type: string
+          description: code environment defined in Ketch
+        identities:
+          type: array
+          description: array of Identities
+          items:
+            $ref: '#/components/schemas/Identity'
+        topics:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SubscriptionStatus'
+        submittedTimestamp:
+          type: number
+          format: int64
+          description: UNIX timestamp in seconds
     DSRRequestStatus:
       type: string
       enum:
@@ -463,6 +493,11 @@ components:
         - completed
         - cancelled
         - denied
+    SubscriptionStatus:
+      type: string
+      enum:
+        - denied
+        - allowed
     Response:
       type: object
       description: Response
@@ -475,6 +510,32 @@ components:
           $ref: '#/components/schemas/Metadata'
         response:
           $ref: '#/components/schemas/AllResponses'
+    SubscriptionControlRequest:
+      type: object
+      description: SubscriptionControl request
+      properties:
+        controller:
+          type: string
+          description: code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
+        property:
+          type: string
+          description: code of the digital property defined in Ketch
+        environment:
+          type: string
+          description: code environment defined in Ketch
+        identities:
+          type: array
+          description: array of Identities
+          items:
+            $ref: '#/components/schemas/Identity'
+        controls:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/SubscriptionStatus'
+        submittedTimestamp:
+          type: number
+          format: int64
+          description: UNIX timestamp in seconds
     ApiVersion:
       type: string
       pattern: dsr/v1
