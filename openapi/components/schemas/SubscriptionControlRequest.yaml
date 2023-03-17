@@ -1,0 +1,25 @@
+type: object
+description: SubscriptionControl request
+properties:
+  controller:
+    type: string
+    description: code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
+  property:
+    type: string
+    description: code of the digital property defined in Ketch
+  environment:
+    type: string
+    description: code environment defined in Ketch
+  identities:
+    type: array
+    description: array of Identities
+    items:
+      $ref: "./Identity.yaml"
+  controls:
+    type: object
+    additionalProperties:
+      $ref: "./SubscriptionStatus.yaml"
+  submittedTimestamp:
+    type: number
+    format: int64
+    description: UNIX timestamp in seconds

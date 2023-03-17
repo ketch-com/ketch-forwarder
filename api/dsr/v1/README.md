@@ -144,11 +144,6 @@ in this object depending on the subject type.
 | *countryCode*     | no        | Two-character ISO country code (e.g., US) provided by the Data Subject |
 | *description*     | no        | Free-text description provided by the Data Subject                     |
 
-#### Fields
-
-| name              | required? | description                                                            |
-|-------------------|-----------|------------------------------------------------------------------------|
-
 ## Response Augmentation
 
 All Response and Event objects support augmenting the Data Subject Request, whether adding context variables
