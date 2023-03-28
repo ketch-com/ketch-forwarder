@@ -31,8 +31,11 @@ Authorization: $auth
     ],
     "topics": {
       "competitions": {
-        "email": "denied",
-        "sms": "granted"
+        "contactMethods": ["email", "sms"],
+        "status": "granted"
+      },
+      "marketing": {
+        "status": "denied"
       }
     },
     "submittedTimestamp": 123
@@ -42,17 +45,17 @@ Authorization: $auth
 
 ### Fields
 
-| name                         | required? | description                                                                                                                |
-|------------------------------|-----------|----------------------------------------------------------------------------------------------------------------------------|
-| *apiVersion*                 | yes       | API version. Must be `subscription/v1`                                                                                     |
-| *kind*                       | yes       | Message kind. Must be `SubscriptionTopicRequest`                                                                           |
-| *metadata*                   | yes       | [Metadata](../../runtime/v1/Metadata.md) object                                                                            |
-| *request.controller*         | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`        |
-| *request.property*           | yes       | Code of the digital property defined in Ketch                                                                              |
-| *request.environment*        | yes       | Code environment defined in Ketch                                                                                          |
-| *request.identities*         | yes       | Array of [Identities](README.md#Identity)                                                                                  |
-| *request.topics*             | yes       | Map of subscription topics codes mapped contact methods mapped to [SubscriptionStatus](README.md#SubscriptionStatus) enum. |
-| *request.submittedTimestamp* | yes       | UNIX timestamp in seconds                                                                                                  |
+| name                         | required? | description                                                                                                         |
+|------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
+| *apiVersion*                 | yes       | API version. Must be `subscription/v1`                                                                              |
+| *kind*                       | yes       | Message kind. Must be `SubscriptionTopicRequest`                                                                    |
+| *metadata*                   | yes       | [Metadata](../../runtime/v1/Metadata.md) object                                                                     |
+| *request.controller*         | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant` |
+| *request.property*           | yes       | Code of the digital property defined in Ketch                                                                       |
+| *request.environment*        | yes       | Code environment defined in Ketch                                                                                   |
+| *request.identities*         | yes       | Array of [Identities](README.md#Identity)                                                                           |
+| *request.topics*             | yes       | Map of subscription topics codes mapped to [SubscriptionTopicSetting](README.md#SubscriptionTopicSetting) enum.     |
+| *request.submittedTimestamp* | yes       | UNIX timestamp in seconds                                                                                           |
 
 ## Consent Response
 

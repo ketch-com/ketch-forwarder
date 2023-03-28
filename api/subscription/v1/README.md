@@ -27,9 +27,43 @@ The Identity object describes the identity of a [Data Subject](#Subject).
 | *identityFormat* | no        | Format of the identity value (`raw`, `md5`, `sha1`). Default is `raw`. |
 | *identityValue*  | yes       | Value of the identity                                                  |
 
+### SubscriptionControlSetting
+
+The `SubscriptionControlSetting` object describes the settings of a `SubscriptionControl`.
+
+```json
+{
+  "status": "granted"
+}
+```
+
+#### Fields
+
+| name             | required? | description                                             |
+|------------------|-----------|---------------------------------------------------------|
+| *status*         | yes       | [SubscriptionStatus](#SubscriptionStatus) of the topic. |
+
+### SubscriptionTopicSetting
+
+The `SubscriptionTopicSetting` object describes the settings of a `SubscriptionTopic`.
+
+```json
+{
+  "contactMethods": ["email", "sms"],
+  "status": "granted"
+}
+```
+
+#### Fields
+
+| name             | required? | description                                             |
+|------------------|-----------|---------------------------------------------------------|
+| *contactMethods* | no        | Array of granted contact methods                        |
+| *status*         | yes       | [SubscriptionStatus](#SubscriptionStatus) of the topic. |
+
 ### SubscriptionStatus
 
-The SubscriptionStatus enum identifies the status of a SubscriptionTopic or SubscriptionControl.
+The `SubscriptionStatus` enum identifies the status of a `SubscriptionTopic` or `SubscriptionControl`.
 
 #### Values
 
