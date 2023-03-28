@@ -24,10 +24,6 @@ jobs:
     - name: Generate next version
       id: version
       uses: conventional-actions/next-version@v1
-    - uses: actions/upload-artifact@v3
-      with:
-        name: docker
-        path: docker
     - name: Generating PDF
       uses: baileyjm02/markdown-to-pdf@v1
       with:
