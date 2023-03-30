@@ -30,7 +30,13 @@ Authorization: $auth
       }
     ],
     "topics": {
-      "global_subscription": "denied"
+      "competitions": {
+        "contactMethods": ["email", "sms"],
+        "status": "granted"
+      },
+      "marketing": {
+        "status": "denied"
+      }
     },
     "submittedTimestamp": 123
   }
@@ -48,7 +54,7 @@ Authorization: $auth
 | *request.property*           | yes       | Code of the digital property defined in Ketch                                                                       |
 | *request.environment*        | yes       | Code environment defined in Ketch                                                                                   |
 | *request.identities*         | yes       | Array of [Identities](README.md#Identity)                                                                           |
-| *request.topics*             | yes       | Map of subscription topics codes mapped to [SubscriptionStatus](README.md#SubscriptionStatus) enum.                 |
+| *request.topics*             | yes       | Map of subscription topics codes mapped to [SubscriptionTopicSetting](README.md#SubscriptionTopicSetting) enum.     |
 | *request.submittedTimestamp* | yes       | UNIX timestamp in seconds                                                                                           |
 
 ## Consent Response

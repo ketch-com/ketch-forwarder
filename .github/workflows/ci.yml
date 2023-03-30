@@ -24,10 +24,6 @@ jobs:
     - name: Generate next version
       id: version
       uses: conventional-actions/next-version@v1
-    - uses: actions/upload-artifact@v3
-      with:
-        name: docker
-        path: docker
     - name: Generating PDF
       uses: baileyjm02/markdown-to-pdf@v1
       with:
@@ -41,6 +37,7 @@ jobs:
         path: pdfs
     - name: Create Release
       uses: conventional-actions/create-release@v1
+      if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
       with:
         tag_name: ${{ steps.version.outputs.version }}
 
