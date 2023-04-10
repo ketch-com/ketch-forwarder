@@ -50,6 +50,8 @@ Identity:
   $ref: "./Identity.yaml"
 SubscriptionTopicResponse:
   $ref: "./SubscriptionTopicResponse.yaml"
+ConsentRequest:
+  $ref: "./ConsentRequest.yaml"
 SubscriptionTopicRequest:
   $ref: "./SubscriptionTopicRequest.yaml"
 DSRRequestStatus:
@@ -62,3 +64,5 @@ SubscriptionControlRequest:
   $ref: "./SubscriptionControlRequest.yaml"
 ApiVersion:
   $ref: "./ApiVersion.yaml"
+ConsentResponse:
+  $ref: "./ConsentResponse.yaml"

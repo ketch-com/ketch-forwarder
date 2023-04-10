@@ -1,0 +1,47 @@
+type: object
+description: ConsentRequest request
+properties:
+  controller:
+    type: string
+    description: code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`
+  property:
+    type: string
+    description: code of the digital property defined in Ketch
+  environment:
+    type: string
+    description: code environment defined in Ketch
+  regulation:
+    type: string
+    description: code of the regulation defined in Ketch
+  jurisdiction:
+    type: string
+    description: code of the jurisdiction defined in Ketch
+  identities:
+    type: array
+    description: array of Identities
+    items:
+      $ref: "./Identity.yaml"
+  purposes:
+    type: object
+    additionalProperties:
+      type: boolean
+    description: map of booleans where the key is the purpose code and the value is true if allowed
+  legalBasis:
+    type: object
+    additionalProperties:
+      type: string
+    description: map of legal basis codes for the purposes
+  vendors:
+    type: array
+    items:
+      type: string
+    description: array of vendors
+  context:
+    type: object
+    additionalProperties:
+      type: string
+    description: map containing additional context that have been added via identity verification or other augmentation methods
+  collectedAt:
+    type: number
+    format: int64
+    description: UNIX timestamp of when the consent was collected
