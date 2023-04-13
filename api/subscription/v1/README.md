@@ -39,9 +39,9 @@ The `SubscriptionControlSetting` object describes the settings of a `Subscriptio
 
 #### Fields
 
-| name             | required? | description                                             |
-|------------------|-----------|---------------------------------------------------------|
-| *status*         | yes       | [SubscriptionStatus](#SubscriptionStatus) of the topic. |
+| name             | required? | description                                               |
+|------------------|-----------|-----------------------------------------------------------|
+| *status*         | yes       | [SubscriptionStatus](#SubscriptionStatus) of the control. |
 
 ### SubscriptionTopicSetting
 
@@ -49,7 +49,6 @@ The `SubscriptionTopicSetting` object describes the settings of a `SubscriptionT
 
 ```json
 {
-  "contactMethods": ["email", "sms"],
   "status": "granted"
 }
 ```
@@ -58,7 +57,6 @@ The `SubscriptionTopicSetting` object describes the settings of a `SubscriptionT
 
 | name             | required? | description                                             |
 |------------------|-----------|---------------------------------------------------------|
-| *contactMethods* | no        | Array of granted contact methods                        |
 | *status*         | yes       | [SubscriptionStatus](#SubscriptionStatus) of the topic. |
 
 ### SubscriptionStatus
@@ -69,5 +67,5 @@ The `SubscriptionStatus` enum identifies the status of a `SubscriptionTopic` or 
 
 | value     | description                                           |
 |-----------|-------------------------------------------------------|
-| `allowed` | The subscription topic/control is allowed by the user |
+| `granted` | The subscription topic/control is allowed by the user |
 | `denied`  | The subscription topic/control is denied by the user  |

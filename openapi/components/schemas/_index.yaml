@@ -10,6 +10,8 @@ RestrictProcessingResponse:
   $ref: "./RestrictProcessingResponse.yaml"
 Error:
   $ref: "./Error.yaml"
+ConsentStatus:
+  $ref: "./ConsentStatus.yaml"
 ErrorKind:
   $ref: "./ErrorKind.yaml"
 Callback:
@@ -56,8 +58,12 @@ SubscriptionTopicRequest:
   $ref: "./SubscriptionTopicRequest.yaml"
 DSRRequestStatus:
   $ref: "./DSRRequestStatus.yaml"
+SubscriptionTopicContactMethodStatus:
+  $ref: "./SubscriptionTopicContactMethodStatus.yaml"
 SubscriptionStatus:
   $ref: "./SubscriptionStatus.yaml"
+LegalBasis:
+  $ref: "./LegalBasis.yaml"
 Response:
   $ref: "./Response.yaml"
 SubscriptionControlRequest:
