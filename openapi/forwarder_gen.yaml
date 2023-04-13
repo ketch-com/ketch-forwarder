@@ -121,6 +121,11 @@ components:
           $ref: '#/components/schemas/Metadata'
         error:
           $ref: '#/components/schemas/ErrorResponse'
+    ConsentStatus:
+      type: string
+      enum:
+        - denied
+        - granted
     ErrorKind:
       type: string
       enum:
@@ -485,7 +490,7 @@ components:
         purposes:
           type: object
           additionalProperties:
-            type: boolean
+            $ref: '#/components/schemas/ConsentStatus'
           description: map of booleans where the key is the purpose code and the value is true if allowed
         legalBasis:
           type: object
@@ -527,7 +532,7 @@ components:
         topics:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/SubscriptionStatus'
+            $ref: '#/components/schemas/SubscriptionTopicContactMethodStatus'
         submittedTimestamp:
           type: number
           format: int64
@@ -541,11 +546,22 @@ components:
         - completed
         - cancelled
         - denied
+    SubscriptionTopicContactMethodStatus:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/SubscriptionStatus'
     SubscriptionStatus:
       type: string
       enum:
         - denied
-        - allowed
+        - granted
+    LegalBasis:
+      type: string
+      enum:
+        - consent_optin
+        - consent_optout
+        - disclosure
+        - other
     Response:
       type: object
       description: Response

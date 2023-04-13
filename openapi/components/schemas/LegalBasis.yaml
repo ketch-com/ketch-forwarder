@@ -1,0 +1,6 @@
+type: string
+enum:
+ - consent_optin
+ - consent_optout
+ - disclosure
+ - other

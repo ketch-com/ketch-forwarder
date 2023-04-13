@@ -18,7 +18,7 @@ properties:
   topics:
     type: object
     additionalProperties:
-      $ref: "./SubscriptionStatus.yaml"
+      $ref: "./SubscriptionTopicContactMethodStatus.yaml"
   submittedTimestamp:
     type: number
     format: int64

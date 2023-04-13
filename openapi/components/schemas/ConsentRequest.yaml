@@ -24,7 +24,7 @@ properties:
   purposes:
     type: object
     additionalProperties:
-      type: boolean
+      $ref: "./ConsentStatus.yaml"
     description: map of booleans where the key is the purpose code and the value is true if allowed
   legalBasis:
     type: object
