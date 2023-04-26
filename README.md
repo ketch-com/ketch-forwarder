@@ -46,4 +46,4 @@ For the examples, a result could be configured as follows (note this URL does no
 
 ## Consent
 
-* [Update Consent](api/consent/v1/UpdateConsent.md)
+* [Consent](api/consent/v1/Consent.md)
