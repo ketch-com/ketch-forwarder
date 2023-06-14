@@ -75,7 +75,7 @@ Authorization: $auth
 ### Fields
 
 | name                         | required? | description                                                                                                                                                                              |
-|------------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ---------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | *apiVersion*                 | yes       | API version. Must be `dsr/v1`                                                                                                                                                            |
 | *kind*                       | yes       | Must be `DeleteRequest`                                                                                                                                                                  |
 | *metadata*                   | yes       | [Metadata](../../runtime/v1/Metadata.md) object                                                                                                                                          |
@@ -216,11 +216,11 @@ Authorization: $auth
 ### Fields
 
 | name                          | required? | description                                                                                       |
-|-------------------------------|-----------|---------------------------------------------------------------------------------------------------|
+| ----------------------------- | --------- | ------------------------------------------------------------------------------------------------- |
 | *status*                      | yes       | The [status](Status.md#Status code) of the Data Subject Request                                   |
 | *reason*                      | no        | The [reason](Status.md#Reason) for the status of the Data Subject Request                         |
 | *expectedCompletionTimestamp* | no        | The UNIX timestamp at which the Data Subject Request is expected to be completed                  |
-| *requestID*                   | no        | The request ID known to the destination system                                                    | 
+| *requestID*                   | no        | The request ID known to the destination system                                                    |
 | *results*                     | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |
 | *documents*                   | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |
 | *context*                     | no        | Map containing additions or changes to context.                                                   |

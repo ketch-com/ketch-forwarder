@@ -71,7 +71,7 @@ Authorization: $auth
 ### Fields
 
 | name                         | required? | description                                                                                                         |
-|------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
+| ---------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------- |
 | *apiVersion*                 | yes       | API version. Must be `dsr/v1`                                                                                       |
 | *kind*                       | yes       | Message kind. Must be `AccessRequest`                                                                               |
 | *metadata*                   | yes       | [Metadata](../../runtime/v1/Metadata.md) object                                                                     |
@@ -235,7 +235,7 @@ Authorization: $auth
 ### Fields
 
 | name                          | required? | description                                                                                       |
-|-------------------------------|-----------|---------------------------------------------------------------------------------------------------|
+| ----------------------------- | --------- | ------------------------------------------------------------------------------------------------- |
 | *status*                      | yes       | The [status](Status.md#Status code) of the Data Subject Request                                   |
 | *reason*                      | no        | The [reason](Status.md#Reason) for the status of the Data Subject Request. Default is `other`.    |
 | *expectedCompletionTimestamp* | no        | The UNIX timestamp at which the Data Subject Request is expected to be completed                  |
@@ -246,4 +246,4 @@ Authorization: $auth
 | *redirectUrl*                 | no        | if the [Data Subject](README.md#Subject) should be redirected to a URL (perhaps for confirmation) |
 | *subject*                     | no        | Map containing additions or changes to subject values [Data Subject](README.md#Subject).          |
 | *identities*                  | no        | Array of [Identities](README.md#Identity) to add to the request                                   |
-| *outcome*                 | no        | Map containing additions or changes to outcome.                                   |
+| *outcome*                     | no        | Map containing additions or changes to outcome.                                                   |

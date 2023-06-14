@@ -31,7 +31,7 @@ The protocol for communicating with the Callback is defined for every object tha
 #### Fields
 
 | name      | required? | description                                     |
-|-----------|-----------|-------------------------------------------------|
+| --------- | --------- | ----------------------------------------------- |
 | *url*     | yes       | URL of the callback endpoint                    |
 | *headers* | no        | map of headers to send to the callback endpoint |
 
@@ -81,7 +81,7 @@ limited to 1MB.
 #### Fields
 
 | name                   | required? | description                  |
-|------------------------|-----------|------------------------------|
+| ---------------------- | --------- | ---------------------------- |
 | *data*                 | yes       | Standard base64-encoded data |
 | *headers*              | yes       | map of headers for the data  |
 | *headers.Content-Type* | yes       | mime type of the data        |
@@ -101,7 +101,7 @@ The Identity object describes the identity of a [Data Subject](#Subject).
 #### Fields
 
 | name             | required? | description                                                            |
-|------------------|-----------|------------------------------------------------------------------------|
+| ---------------- | --------- | ---------------------------------------------------------------------- |
 | *identitySpace*  | yes       | Identity space code setup in Ketch                                     |
 | *identityFormat* | no        | Format of the identity value (`raw`, `md5`, `sha1`). Default is `raw`. |
 | *identityValue*  | yes       | Value of the identity                                                  |
@@ -134,19 +134,19 @@ in this object depending on the subject type.
 
 #### Fields
 
-| name              | required? | description                                                            |
-|-------------------|-----------|------------------------------------------------------------------------|
-| *type*            | no        | Type of the data subject (customer, employee, etc.)                    |
-| *email*           | yes       | Email address provided by the Data Subject                             |
-| *firstName*       | yes       | First name provided by the Data Subject                                |
-| *lastName*        | yes       | Last name provided by the Data Subject                                 |
-| *addressLine1*    | no        | Address line 1 provided by the Data Subject                            |
-| *addressLine2*    | no        | Address line 2 provided by the Data Subject                            |
-| *city*            | no        | City provided by the Data Subject                                      |
-| *stateRegionCode* | no        | State/region code (e.g., CA) provided by the Data Subject              |
-| *postalCode*      | no        | Zip/postal code provided by the Data Subject                           |
-| *countryCode*     | no        | Two-character ISO country code (e.g., US) provided by the Data Subject |
-| *description*     | no        | Free-text description provided by the Data Subject                     |
+| name              | required? | description                                                                     |
+| ----------------- | --------- | ------------------------------------------------------------------------------- |
+| *type*            | no        | Type of the data subject (customer, employee, etc.)                             |
+| *email*           | yes       | Email address provided by the Data Subject                                      |
+| *firstName*       | yes       | First name provided by the Data Subject                                         |
+| *lastName*        | yes       | Last name provided by the Data Subject                                          |
+| *addressLine1*    | no        | Address line 1 provided by the Data Subject                                     |
+| *addressLine2*    | no        | Address line 2 provided by the Data Subject                                     |
+| *city*            | no        | City provided by the Data Subject                                               |
+| *stateRegionCode* | no        | State/region code (e.g., CA) provided by the Data Subject                       |
+| *postalCode*      | no        | Zip/postal code provided by the Data Subject                                    |
+| *countryCode*     | no        | Two-character ISO country code (e.g., US) provided by the Data Subject          |
+| *description*     | no        | Free-text description provided by the Data Subject                              |
 | *formData*        | no        | Map containing additional form data that have been added via custom Form Fields |
 
 ## Response Augmentation
