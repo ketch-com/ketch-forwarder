@@ -124,7 +124,11 @@ in this object depending on the subject type.
   "stateRegionCode": "MA",
   "postalCode": "10123",
   "countryCode": "US",
-  "description": "Restrict my data"
+  "description": "Restrict my data",
+  "formData": {
+    "customFormField1": "value1",
+    "customFormField2": "value1"
+  }
 }
 ```
 
@@ -143,6 +147,7 @@ in this object depending on the subject type.
 | *postalCode*      | no        | Zip/postal code provided by the Data Subject                           |
 | *countryCode*     | no        | Two-character ISO country code (e.g., US) provided by the Data Subject |
 | *description*     | no        | Free-text description provided by the Data Subject                     |
+| *formData*        | no        | Map containing additional form data that have been added via custom Form Fields |
 
 ## Response Augmentation
 

@@ -36,7 +36,7 @@ properties:
   context:
     type: object
     additionalProperties:
-      type: string
+      type: [string, number, boolean]
     description: map containing additional non-identity context that have been added via identity verification or other augmentation methods. Identity context should be included in `request.identities`.
   submittedTimestamp:
     type: number
@@ -46,4 +46,3 @@ properties:
     type: number
     format: int64
     description: UNIX timestamp in seconds
-

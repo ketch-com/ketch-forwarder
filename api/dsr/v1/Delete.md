@@ -54,10 +54,17 @@ Authorization: $auth
       "stateRegionCode": "MA",
       "postalCode": "10123",
       "countryCode": "US",
-      "description": "Delete my data"
+      "description": "Delete my data",
+      "description": "Correct my name to Test Object",
+      "formData": {
+        "customFormField1": "foo",
+        "customFormField2": "bar",
+      }
     },
     "context": {
-      "account_id": "123"
+      "contextVar1": "foo",
+      "contextVar2": 1,
+      "contextVar3": true
     },
     "submittedTimestamp": 123,
     "dueTimestamp": 123
@@ -131,12 +138,21 @@ Content-Length: 238
       "addressLine2": "Apt 123",
       "stateRegionCode": "MA",
       "postalCode": "10123",
-      "countryCode": "US"
+      "countryCode": "US",
+      "formData": {
+        "customFormField1": "foo",
+        "customFormField2": "bar",
+      }
     },
     "context": {
-      "contextVariable1": "foo",
-      "contextVariable2": 1,
-      "contextVariable4": true
+      "contextVar1": "foo",
+      "contextVar2": 1,
+      "contextVar3": true
+    },
+    "outcome": {
+      "outcomeVar1": "foo",
+      "outcomeVar2": 1,
+      "outcomeVar3": true
     }
   }
 }
@@ -177,12 +193,21 @@ Authorization: $auth
       "addressLine2": "Apt 123",
       "stateRegionCode": "MA",
       "postalCode": "10123",
-      "countryCode": "US"
+      "countryCode": "US",
+      "formData": {
+        "customFormField1": "foo",
+        "customFormField2": "bar",
+      }
     },
     "context": {
-      "contextVariable1": "foo",
-      "contextVariable2": 1,
-      "contextVariable4": true
+      "contextVar1": "foo",
+      "contextVar2": 1,
+      "contextVar3": true
+    },
+    "outcome": {
+      "outcomeVar1": "foo",
+      "outcomeVar2": 1,
+      "outcomeVar3": true
     }
   }
 }
@@ -202,3 +227,5 @@ Authorization: $auth
 | *redirectUrl*                 | no        | if the [Data Subject](README.md#Subject) should be redirected to a URL (perhaps for confirmation) |
 | *subject*                     | no        | Map containing additions or changes to subject values [Data Subject](README.md#Subject).          |
 | *identities*                  | no        | Array of [Identities](README.md#Identity) to add to the request                                   |
+| *outcome*                     | no        | Map containing additions or changes to outcome.                                                   |
+

@@ -204,7 +204,10 @@ components:
         context:
           type: object
           additionalProperties:
-            type: string
+            type:
+              - string
+              - number
+              - boolean
           description: map containing additional non-identity context that have been added via identity verification or other augmentation methods. Identity context should be included in `request.identities`.
         submittedTimestamp:
           type: number
@@ -247,6 +250,10 @@ components:
         description:
           type: string
           description: free-text description provided by the Data Subject
+        formData:
+          type: object
+          additionalProperties:
+            type: string
       additionalProperties:
         type: string
     Event:
@@ -306,7 +313,10 @@ components:
         context:
           type: object
           additionalProperties:
-            type: string
+            type:
+              - string
+              - number
+              - boolean
           description: map containing additional non-identity context that have been added via identity verification or other augmentation methods. Identity context should be included in `request.identities`.
         submittedTimestamp:
           type: number
@@ -353,7 +363,10 @@ components:
         context:
           type: object
           additionalProperties:
-            type: string
+            type:
+              - string
+              - number
+              - boolean
           description: map containing additional non-identity context that have been added via identity verification or other augmentation methods. Identity context should be included in `request.identities`.
         submittedTimestamp:
           type: number
@@ -404,7 +417,10 @@ components:
         context:
           type: object
           additionalProperties:
-            type: string
+            type:
+              - string
+              - number
+              - boolean
           description: map containing additional non-identity context that have been added via identity verification or other augmentation methods. Identity context should be included in `request.identities`.
         submittedTimestamp:
           type: number
@@ -505,7 +521,10 @@ components:
         context:
           type: object
           additionalProperties:
-            type: string
+            type:
+              - string
+              - number
+              - boolean
           description: map containing additional context that have been added via identity verification or other augmentation methods
         collectedAt:
           type: number
