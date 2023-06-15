@@ -525,7 +525,7 @@ components:
               - string
               - number
               - boolean
-          description: map containing additional context that have been added via identity verification or other augmentation methods
+          description: Map containing additional context (Data Subject Variables) that have been added via identity verification or other augmentation methods
         collectedAt:
           type: number
           format: int64

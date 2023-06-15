@@ -75,23 +75,23 @@ Authorization: $auth
 
 ### Fields
 
-| name                         | required? | description                                                                                                         |
-|------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------|
-| *apiVersion*                 | yes       | API version. Must be `dsr/v1`                                                                                       |
-| *kind*                       | yes       | Message kind. Must be `RestrictProcessingRequest`                                                                   |
-| *metadata*                   | yes       | [Metadata](../../runtime/v1/Metadata.md) object                                                                     |
-| *request.controller*         | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant` |
-| *request.property*           | yes       | Code of the digital property defined in Ketch                                                                       |
-| *request.environment*        | yes       | Code environment defined in Ketch                                                                                   |
-| *request.regulation*         | yes       | Code of the regulation defined in Ketch                                                                             |
-| *request.jurisdiction*       | yes       | Code of the jurisdiction defined in Ketch                                                                           |
-| *request.purposes*           | yes       | List of purpose codes defined in Ketch                                                                              |
-| *request.identities*         | yes       | Array of [Identities](README.md#Identity)                                                                           |
-| *request.callbacks*          | no        | Array of [Callbacks](README.md#Callback)                                                                            |
-| *request.subject*            | yes       | The [Data Subject](README.md#Subject)                                                                               |
-| *request.context*            | no        | Map containing additional context that have been added via identity verification or other augmentation methods      |
-| *request.submittedTimestamp* | yes       | UNIX timestamp in seconds                                                                                           |
-| *request.dueTimestamp*       | yes       | UNIX timestamp in seconds                                                                                           |
+| name                         | required? | description                                                                                                                             |
+| ---------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| *apiVersion*                 | yes       | API version. Must be `dsr/v1`                                                                                                           |
+| *kind*                       | yes       | Message kind. Must be `RestrictProcessingRequest`                                                                                       |
+| *metadata*                   | yes       | [Metadata](../../runtime/v1/Metadata.md) object                                                                                         |
+| *request.controller*         | no        | Code of the Ketch controller tenant. Only supplied if the ultimate controller is different to the `metadata.tenant`                     |
+| *request.property*           | yes       | Code of the digital property defined in Ketch                                                                                           |
+| *request.environment*        | yes       | Code environment defined in Ketch                                                                                                       |
+| *request.regulation*         | yes       | Code of the regulation defined in Ketch                                                                                                 |
+| *request.jurisdiction*       | yes       | Code of the jurisdiction defined in Ketch                                                                                               |
+| *request.purposes*           | yes       | List of purpose codes defined in Ketch                                                                                                  |
+| *request.identities*         | yes       | Array of [Identities](README.md#Identity)                                                                                               |
+| *request.callbacks*          | no        | Array of [Callbacks](README.md#Callback)                                                                                                |
+| *request.subject*            | yes       | The [Data Subject](README.md#Subject)                                                                                                   |
+| *request.context*            | no        | Map containing additional context (Data Subject Variables) that have been added via identity verification or other augmentation methods |
+| *request.submittedTimestamp* | yes       | UNIX timestamp in seconds                                                                                                               |
+| *request.dueTimestamp*       | yes       | UNIX timestamp in seconds                                                                                                               |
 
 ## Restrict Processing Response / Status Event
 
@@ -213,15 +213,15 @@ Authorization: $auth
 ### Fields
 
 | name                          | required? | description                                                                                       |
-|-------------------------------|-----------|---------------------------------------------------------------------------------------------------|
+| ----------------------------- | --------- | ------------------------------------------------------------------------------------------------- |
 | *status*                      | yes       | The [status](Status.md#Status code) of the Data Subject Request                                   |
 | *reason*                      | no        | The [reason](Status.md#Reason) for the status of the Data Subject Request                         |
 | *expectedCompletionTimestamp* | no        | The UNIX timestamp at which the Data Subject Request is expected to be completed                  |
 | *requestID*                   | no        | The request ID known to the destination system                                                    |
 | *results*                     | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |
 | *documents*                   | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |
-| *context*                     | no        | Map containing additions or changes to context.                                                   |
+| *context*                     | no        | Map containing additions or changes to Data Subject Variables.                                    |
 | *redirectUrl*                 | no        | if the [Data Subject](README.md#Subject) should be redirected to a URL (perhaps for confirmation) |
 | *subject*                     | no        | Map containing additions or changes to subject values [Data Subject](README.md#Subject).          |
 | *identities*                  | no        | Array of [Identities](README.md#Identity) to add to the request                                   |
-| *outcome*                     | no        | Map containing additions or changes to outcome.                                                   |
+| *outcome*                     | no        | Map containing additions or changes to Outcome Variables                                          |
