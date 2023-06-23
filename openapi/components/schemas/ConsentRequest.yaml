@@ -39,8 +39,8 @@ properties:
   context:
     type: object
     additionalProperties:
-      type: string
-    description: map containing additional context that have been added via identity verification or other augmentation methods
+      type: [string, number, boolean]
+    description: Map containing additional context (Data Subject Variables) that have been added via identity verification or other augmentation methods
   collectedAt:
     type: number
     format: int64
