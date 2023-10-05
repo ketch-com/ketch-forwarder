@@ -192,6 +192,7 @@ Authorization: $auth
         }
       },
       {
+        "name": "secondresult.json",
         "data": "eyJrZXkiOiAidmFsdWUifQ==",
         "headers": {
           "Content-Type": "application/json"
