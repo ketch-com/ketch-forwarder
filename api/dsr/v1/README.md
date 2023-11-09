@@ -70,7 +70,8 @@ The Document object can provide the data directly in the value.
 
 Here, the document is returned directly in the response/event using base64-encoded data. The
 `Content-Type` header is required so Ketch knows the [mime type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types)
-of data received. The only supported content type is `application/json`.
+of data received. The only supported content types are `application/json` and `application/pdf`. File size is
+limited to 3.5Mb.
 
 #### JSON Data
 
