@@ -116,6 +116,7 @@ Content-Type: application/json
   },
   "response": {
     "status": "in_progress",
+    "resultMessage": "We are processing the request",
     "expectedCompletionTimestamp": 123,
     "results": [
       {
@@ -183,6 +184,7 @@ Authorization: $auth
   },
   "event": {
     "status": "in_progress",
+    "resultMessage": "We are processing the request",
     "expectedCompletionTimestamp": 123,
     "results": [
       {
@@ -235,9 +237,10 @@ Authorization: $auth
 ### Fields
 
 | name                          | required? | description                                                                                       |
-| ----------------------------- | --------- | ------------------------------------------------------------------------------------------------- |
+| ----------------------------- | --------- |---------------------------------------------------------------------------------------------------|
 | *status*                      | yes       | The [status](Status.md#Status code) of the Data Subject Request                                   |
 | *reason*                      | no        | The [reason](Status.md#Reason) for the status of the Data Subject Request. Default is `other`.    |
+| *resultMessage*               | no        | A user-friendly message specifying any details about the status/response                          |
 | *expectedCompletionTimestamp* | no        | The UNIX timestamp at which the Data Subject Request is expected to be completed                  |
 | *requestID*                   | no        | The request ID known to the destination system                                                    |
 | *results*                     | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |

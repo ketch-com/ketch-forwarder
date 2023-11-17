@@ -114,6 +114,7 @@ Content-Type: application/json
   },
   "response": {
     "status": "in_progress",
+    "resultMessage": "We are processing the request",
     "expectedCompletionTimestamp": 123
     "identities": [
       {
@@ -167,6 +168,7 @@ Authorization: $auth
   },
   "event": {
     "status": "pending",
+    "resultMessage": "We are processing the request",
     "expectedCompletionTimestamp": 123,
     "identities": [
       {
@@ -205,9 +207,10 @@ Authorization: $auth
 ### Fields
 
 | name                          | required? | description                                                                                       |
-| ----------------------------- | --------- | ------------------------------------------------------------------------------------------------- |
+| ----------------------------- | --------- |---------------------------------------------------------------------------------------------------|
 | *status*                      | yes       | The [status](Status.md#Status code) of the Data Subject Request                                   |
 | *reason*                      | no        | The [reason](Status.md#Reason) for the status of the Data Subject Request                         |
+| *resultMessage*               | no        | A user-friendly message specifying any details about the status/response                          |
 | *expectedCompletionTimestamp* | no        | The UNIX timestamp at which the Data Subject Request is expected to be completed                  |
 | *requestID*                   | no        | The request ID known to the destination system                                                    |
 | *results*                     | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |
@@ -217,4 +220,3 @@ Authorization: $auth
 | *subject*                     | no        | Map containing additions or changes to subject values [Data Subject](README.md#Subject).          |
 | *identities*                  | no        | Array of [Identities](README.md#Identity) to add to the request                                   |
 | *outcome*                     | no        | Map containing additions or changes to Outcome Variables                                          |
-
