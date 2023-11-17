@@ -6,6 +6,9 @@ properties:
   reason:
     $ref: "./DSRRequestStatusReason.yaml"
     description: the reason for the status of the Data Subject Request
+  resultMessage:
+    type: string
+    description: A user-friendly message specifying any details about the status/response
   expectedCompletionTimestamp:
     type: number
     format: int64

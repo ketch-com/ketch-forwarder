@@ -122,7 +122,7 @@ Content-Length: 238
   "response": {
     "status": "in_progress",
     "reason": "other",
-    "resultMessage": "we are processing the request",
+    "resultMessage": "We are processing the request",
     "expectedCompletionTimestamp": 123,
     "requestID": "abc123"
     "identities": [
@@ -178,7 +178,7 @@ Authorization: $auth
   "event": {
     "status": "in_progress",
     "reason": "other",
-    "resultMessage": "we are processing the request",
+    "resultMessage": "We are processing the request",
     "expectedCompletionTimestamp": 123,
     "requestID": "abc123"
     "identities": [
@@ -231,4 +231,3 @@ Authorization: $auth
 | *subject*                     | no        | Map containing additions or changes to subject values [Data Subject](README.md#Subject).          |
 | *identities*                  | no        | Array of [Identities](README.md#Identity) to add to the request                                   |
 | *outcome*                     | no        | Map containing additions or changes to Outcome Variables                                          |
-
