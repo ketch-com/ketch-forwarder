@@ -15,12 +15,9 @@ some time.
 
 | name          | description                     |
 |---------------|---------------------------------|
-| *unknown*     | the status is unknown           |
 | *pending*     | the request is pending approval |
 | *in_progress* | the request is in progress      |
 | *completed*   | the request has been completed  | 
-| *cancelled*   | the request has been cancelled  |
-| *denied*      | the request has been denied     |
 
 The status code is case sensitve.
 
