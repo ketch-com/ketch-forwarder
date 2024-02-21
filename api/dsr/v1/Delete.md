@@ -101,7 +101,7 @@ added and existing documents are updated.
 When the status of Delete Request has changed, a `DeleteStatusEvent` event should be sent to all the callbacks specified
 in the request.
 
-Once the status is set to `completed`, `cancelled` or `denied`, then no further events will be accepted.
+Once the status is set to `completed`, `in_progress` or `pending`, then no further events will be accepted.
 
 The `Content-Type` MUST be `application/json`.
 
