@@ -94,7 +94,7 @@ The `results` and `documents` are merged with any cached results from previous e
 added and existing documents are updated.
 
 When the status of Correction Request has changed, a `CorrectionStatusEvent` JSON object should be sent to all the
-callbacks specified in the request. Once the status is set to `completed`, `cancelled` or `denied`, then no further
+callbacks specified in the request. Once the status is set to `completed`, then no further
 events will be accepted.
 
 The `Content-Type` MUST be `application/json`.
