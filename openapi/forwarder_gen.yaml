@@ -563,8 +563,6 @@ components:
         - pending
         - in_progress
         - completed
-        - cancelled
-        - denied
     SubscriptionTopicContactMethodStatus:
       type: object
       additionalProperties:
