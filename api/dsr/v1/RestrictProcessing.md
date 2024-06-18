@@ -103,7 +103,7 @@ be sent to all the callbacks specified in the request.
 The `results` and `documents` are merged with any cached results from previous events. New documents are 
 added and existing documents are updated.
 
-Once the status is set to `completed`, `cancelled` or `denied`, then no further events will be accepted.
+Once the status is set to `completed`, then no further events will be accepted.
 
 The `Content-Type` MUST be `application/json`.
 
