@@ -103,7 +103,7 @@ be sent to all the callbacks specified in the request.
 The `results` and `documents` are merged with any cached results from previous events. New documents are 
 added and existing documents are updated.
 
-Once the status is set to `completed`, `cancelled` or `denied`, then no further events will be accepted.
+Once the status is set to `completed`, then no further events will be accepted.
 
 The `Content-Type` MUST be `application/json`.
 
@@ -122,6 +122,7 @@ Content-Type: application/json
   },
   "response": {
     "status": "pending",
+    "resultMessage": "We are processing the request",
     "expectedCompletionTimestamp": 123
     "identities": [
       {
@@ -175,6 +176,7 @@ Authorization: $auth
   },
   "event": {
     "status": "pending",
+    "resultMessage": "We are processing the request",
     "expectedCompletionTimestamp": 123,
     "identities": [
       {
@@ -212,16 +214,17 @@ Authorization: $auth
 
 ### Fields
 
-| name                          | required? | description                                                                                       |
-| ----------------------------- | --------- | ------------------------------------------------------------------------------------------------- |
-| *status*                      | yes       | The [status](Status.md#Status code) of the Data Subject Request                                   |
-| *reason*                      | no        | The [reason](Status.md#Reason) for the status of the Data Subject Request                         |
-| *expectedCompletionTimestamp* | no        | The UNIX timestamp at which the Data Subject Request is expected to be completed                  |
-| *requestID*                   | no        | The request ID known to the destination system                                                    |
-| *results*                     | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |
-| *documents*                   | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested      |
-| *context*                     | no        | Map containing additions or changes to Data Subject Variables.                                    |
-| *redirectUrl*                 | no        | if the [Data Subject](README.md#Subject) should be redirected to a URL (perhaps for confirmation) |
-| *subject*                     | no        | Map containing additions or changes to subject values [Data Subject](README.md#Subject).          |
-| *identities*                  | no        | Array of [Identities](README.md#Identity) to add to the request                                   |
-| *outcome*                     | no        | Map containing additions or changes to Outcome Variables                                          |
+| name                          | required? | description                                                                                        |
+| ----------------------------- | --------- |----------------------------------------------------------------------------------------------------|
+| *status*                      | yes       | The [status](Status.md#Status code) of the Data Subject Request                                    |
+| *reason*                      | no        | The [reason](Status.md#Reason) for the status of the Data Subject Request                          |
+| *resultMessage*               | no        | A user-friendly message specifying any details about the status/response                           |
+| *expectedCompletionTimestamp* | no        | The UNIX timestamp at which the Data Subject Request is expected to be completed                   |
+| *requestID*                   | no        | The request ID known to the destination system                                                     |
+| *results*                     | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested       |
+| *documents*                   | no        | Array of [Documents](README.md#Document) that can be used to download the contents requested       |
+| *context*                     | no        | Map containing additions or changes to Data Subject Variables.                                     |
+| *redirectUrl*                 | no        | if the [Data Subject](README.md#Subject) should be redirected to a URL (perhaps for confirmation)  |
+| *subject*                     | no        | Map containing additions or changes to subject values [Data Subject](README.md#Subject).           |
+| *identities*                  | no        | Array of [Identities](README.md#Identity) to add to the request                                    |
+| *outcome*                     | no        | Map containing additions or changes to Outcome Variables                                           |
