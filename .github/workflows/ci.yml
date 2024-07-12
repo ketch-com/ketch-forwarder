@@ -25,7 +25,7 @@ jobs:
       id: version
       uses: conventional-actions/next-version@v1
     - name: Generating PDF
-      uses: baileyjm02/markdown-to-pdf@v1
+      uses: baileyjm02/markdown-to-pdf@v2
       with:
         input_path: README.md
         output_dir: pdfs
