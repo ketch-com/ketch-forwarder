@@ -16,6 +16,25 @@ properties:
   requestID:
     type: string
     description: the request ID known in the destination system
+  results:
+    type: array
+    items:
+      $ref: "./Document.yaml"
+  documents:
+    type: array
+    items:
+      $ref: "./Document.yaml"
+  context:
+    type: object
+  outcome:
+    type: object
+  subject:
+    type: object
+  identities:
+    type: array
+    description: array of Identities
+    items:
+      $ref: "./Identity.yaml"
 #  redirectUrl:
 #    type: string
 #    format: url

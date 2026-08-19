@@ -37,7 +37,8 @@ The protocol for communicating with the Callback is defined for every object tha
 
 ### Document
 
-The Document object defines a way of providing document data to the Ketch platform.
+The Document object defines a way of providing document data to the Ketch platform. An optional `name` can
+be specified for the Document.
 
 #### As a Callback
 

@@ -46,6 +46,8 @@ CorrectionResponse:
   $ref: "./CorrectionResponse.yaml"
 ResponseKind:
   $ref: "./ResponseKind.yaml"
+Document:
+  $ref: "./Document.yaml"
 DSRRequestStatusReason:
   $ref: "./DSRRequestStatusReason.yaml"
 Identity:
